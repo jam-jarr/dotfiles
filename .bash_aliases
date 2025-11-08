@@ -1,0 +1,41 @@
+# A few nice things
+alias less='less -r'             # raw control characters
+alias whence='type -a'           # where, of a sort
+alias grep='grep --color'        # show differences in colour
+alias egrep='egrep --color=auto' # show differences in colour
+alias fgrep='fgrep --color=auto' # show differences in colour
+alias se='sudoedit'
+
+# alias pwdc='pwd | xsel -b'
+alias pwdc='pwd | clip.exe' # alternative for windows only
+
+# Replace ls with lsd
+alias ls='lsd' # classify files in colour
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+alias llt='l --tree'
+alias lg='l --git'
+
+alias bat='batcat'
+
+# Replacements
+alias vim='nvim'
+# alias cd='z'
+
+# Interactive operation...
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Directory shortcuts
+if [ -f ~/.bash_aliases_untracked ]; then
+  . ~/.bash_aliases_untracked
+fi
+
+# Program shortcuts
+alias exp="explorer.exe"
+
+# SSH Shortcuts
+alias sshusf='ssh ggiarratana@sc.rc.usf.edu'
