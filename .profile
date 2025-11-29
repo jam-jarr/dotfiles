@@ -26,7 +26,7 @@ if [ -d "$HOME/.local/bin" ]; then
   PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Add cargo installs ot PATH
+# Add cargo installs to PATH
 export PATH="$PATH:/home/jamjar/.cargo/bin"
 
 # Enable FZF support for bash
@@ -35,25 +35,25 @@ eval "$(zoxide init --cmd cd bash)"
 
 . "$HOME/.local/bin/env"
 
-# Ssh agent startup
-SSH_ENV="$HOME/.ssh/agent-environment"
-
-function start_agent {
-  echo "Initialising new SSH agent..."
-  /usr/bin/ssh-agent | sed 's/^echo/#echo/' >"$SSH_ENV"
-  echo succeeded
-  chmod 600 "$SSH_ENV"
-  . "$SSH_ENV" >/dev/null
-  /usr/bin/ssh-add
-}
-
-# Source SSH settings, if applicable
-if [ -f "$SSH_ENV" ]; then
-  . "$SSH_ENV" >/dev/null
-  #ps $SSH_AGENT_PID doesn't work under Cygwin
-  ps -ef | grep $SSH_AGENT_PID | grep ssh-agent$ >/dev/null || {
-    start_agent
-  }
-else
-  start_agent
-fi
+# # Ssh agent startup
+# SSH_ENV="$HOME/.ssh/agent-environment"
+#
+# function start_agent {
+#   echo "Initialising new SSH agent..."
+#   /usr/bin/ssh-agent | sed 's/^echo/#echo/' >"$SSH_ENV"
+#   echo succeeded
+#   chmod 600 "$SSH_ENV"
+#   . "$SSH_ENV" >/dev/null
+#   /usr/bin/ssh-add
+# }
+#
+# # Source SSH settings, if applicable
+# if [ -f "$SSH_ENV" ]; then
+#   . "$SSH_ENV" >/dev/null
+#   #ps $SSH_AGENT_PID doesn't work under Cygwin
+#   ps -ef | grep $SSH_AGENT_PID | grep ssh-agent$ >/dev/null || {
+#     start_agent
+#   }
+# else
+#   start_agent
+# fi
