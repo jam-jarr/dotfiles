@@ -128,3 +128,6 @@ eval $(keychain -q --eval ~/.ssh/id_ed25519)
 
 # oh-my-posh
 eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/macchiato.json)"
+
+# Set default editor
+export EDITOR=nvim
