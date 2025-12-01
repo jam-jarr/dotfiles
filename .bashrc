@@ -131,3 +131,6 @@ eval "$(oh-my-posh init bash --config ~/.config/ohmyposh/macchiato.json)"
 
 # Set default editor
 export EDITOR=nvim
+
+# opencode
+export PATH=/home/jamjar/.opencode/bin:$PATH
