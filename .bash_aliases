@@ -15,14 +15,14 @@ alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
-alias llt='l --tree'
-alias lg='l --git'
+alias llt='ls -l --tree'
 
 alias bat='batcat'
 
+alias lg='lazygit'
+
 # Replacements
 alias vim='nvim'
-# alias cd='z'
 
 # Interactive operation...
 alias rm='rm -i'
