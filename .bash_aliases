@@ -17,12 +17,11 @@ alias lla='ls -la'
 alias lt='ls --tree'
 alias llt='ls -l --tree'
 
+# Shortcuts
 alias bat='batcat'
-
-alias lg='lazygit'
-
-# Replacements
 alias vim='nvim'
+alias lg='lazygit'
+alias py='python3'
 
 # Interactive operation...
 alias rm='rm -i'
