@@ -22,6 +22,7 @@ alias bat='batcat'
 alias vim='nvim'
 alias lg='lazygit'
 alias py='python3'
+alias fd='fdfind'
 
 # Interactive operation...
 alias rm='rm -i'
