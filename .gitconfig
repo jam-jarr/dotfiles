@@ -1,0 +1,10 @@
+[init]
+	defaultBranch = main
+[credential]
+	helper = cache --timeout 21600
+	helper = oauth
+[user]
+	name = Jamie
+	email = jamie.giarratana@gmail.com
+[alias]
+	go = log --graph --all --oneline --decorate
