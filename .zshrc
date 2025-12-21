@@ -97,9 +97,6 @@ setopt hist_find_no_dups
 # Completion
 zstyle ':completion:*' menu no
 
-# Keychain for SSH
-eval $(keychain -q --eval ~/.ssh/id_ed25519)
-
 # oh-my-posh
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/macchiato.json)"
 
