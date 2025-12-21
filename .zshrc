@@ -55,7 +55,7 @@ fi
 
 # Zsh plugins
 zi ice lucid wait
-zi light zsh-users/zsh-syntax-highlighting
+zi light zdharma-continuum/fast-syntax-highlighting
 
 zi for \
     atload"zicompinit; zicdreplay" \
