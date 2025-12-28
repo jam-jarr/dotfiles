@@ -23,6 +23,7 @@ alias vim='nvim'
 alias lg='lazygit'
 alias py='python3'
 alias fd='fdfind'
+alias uvr='uv run'
 
 # Interactive operation...
 alias rm='rm -i'
