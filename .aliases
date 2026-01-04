@@ -30,6 +30,11 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# User defined functions
+function monlog() {
+  tail -f $1 | bat -l log --paging=never
+}
+
 # Directory shortcuts
 if [ -f ~/.bash_aliases_untracked ]; then
   . ~/.bash_aliases_untracked
