@@ -18,11 +18,11 @@ alias lt='ls --tree'
 alias llt='ls -l --tree'
 
 # Shortcuts
-alias bat='batcat'
+# alias bat='batcat'
 alias vim='nvim'
 alias lg='lazygit'
 alias py='python3'
-alias fd='fdfind'
+# alias fd='fdfind'
 alias uvr='uv run'
 
 # Interactive operation...
