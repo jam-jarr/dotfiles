@@ -8,3 +8,9 @@
 	email = jamie.giarratana@gmail.com
 [alias]
 	go = log --graph --all --oneline --decorate
+[diff]
+  tool = nvimdiff
+[difftool "nvimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE
+  trustExitCode = true
+  keepBackup = false
