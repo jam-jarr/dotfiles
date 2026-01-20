@@ -5,7 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# . "$HOME/.local/bin/env"
+if [ -f "$HOME/.local/bin/env" ]; then
+  . "$HOME/.local/bin/env"
+fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -54,6 +56,10 @@ export PATH=/home/jamjar/.opencode/bin:$PATH
 
 if [ -f ~/.aliases ]; then
   . ~/.aliases
+fi
+
+if [ -f ~/.zaliases ]; then
+  . ~/.zaliases
 fi
 
 # Zsh plugins
