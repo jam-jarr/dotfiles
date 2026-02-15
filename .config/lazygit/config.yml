@@ -1,0 +1,5 @@
+gui:
+  # Enable file icons
+  showFileIcons: true
+  # Specify the Nerd Fonts version ("2" or "3"). Empty means do not show icons.
+  nerdFontsVersion: "3"
