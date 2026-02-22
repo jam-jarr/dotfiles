@@ -43,9 +43,3 @@ function monlog() {
 if [ -f ~/.bash_aliases_untracked ]; then
   . ~/.bash_aliases_untracked
 fi
-
-# Program shortcuts
-alias exp="explorer.exe"
-
-# SSH Shortcuts
-alias sshusf='ssh ggiarratana@sc.rc.usf.edu'
