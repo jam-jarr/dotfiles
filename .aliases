@@ -25,6 +25,10 @@ alias py='python3'
 # alias fd='fdfind'
 alias uvr='uv run'
 
+# Nordvpn
+alias nvc='nordvpn connect'
+alias nvd='nordvpn disconnect && sudo pkill norduserd'
+
 # Interactive operation...
 alias rm='rm -i'
 alias cp='cp -i'
