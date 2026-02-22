@@ -10,7 +10,7 @@ alias se='sudoedit'
 alias pwdc='pwd | clip.exe' # alternative for windows only
 
 # Replace ls with lsd
-alias ls='lsd' # classify files in colour
+alias ls='lsd --versionsort' # classify files in colour, use natual sort by default
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
