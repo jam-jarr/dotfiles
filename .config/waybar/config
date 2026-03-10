@@ -16,7 +16,6 @@
     "battery",
     "clock"
   ],
-
   "hyprland/workspaces": {
     "format": "{icon}",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
@@ -34,21 +33,11 @@
       "10": "0"
     }
   },
-
   "hyprland/window": {
     "format": "{class}",
     "max-length": 30,
     "separate-outputs": true
   },
-
-  "custom/fullscreen": {
-    "format": "{}",
-    "exec": "$HOME/.config/waybar/scripts/fullscreen-status.sh",
-    "interval": 1,
-    "tooltip": true,
-    "return-type": "json"
-  },
-
   "mpris": {
     "format": "{player_icon} {dynamic}",
     "format-paused": "{status_icon} <i>{dynamic}</i>",
@@ -71,7 +60,6 @@
     "max-length": 30,
     "on-click": "playerctl play-pause"
   },
-
   "network": {
     "format": "󰤨 {essid}",
     "format-wifi": "󰤨 {essid}",
@@ -83,7 +71,6 @@
     "max-length": 20,
     "on-click": "nm-connection-editor"
   },
-
   "bluetooth": {
     "format": "󰂯 {status}",
     "format-disabled": "",
@@ -96,7 +83,6 @@
     "max-length": 20,
     "on-click": "blueman-manager"
   },
-
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-muted": "󰖁 Muted",
@@ -107,7 +93,11 @@
       "phone": "󰏲",
       "portable": "󰏲",
       "car": "󰄍",
-      "default": ["󰕿", "󰖀", "󰕾"]
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
     },
     "on-click": "pamixer -t",
     "on-scroll-up": "pamixer -i 5",
@@ -115,10 +105,20 @@
     "scroll-step": 5,
     "tooltip-format": "{desc} {volume}%"
   },
-
   "battery": {
     "format": "{icon} {capacity}%",
-    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-icons": [
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
     "format-charging": "󰂄 {capacity}%",
     "format-plugged": "󰂄 {capacity}%",
     "format-full": "󰁹 {capacity}%",
@@ -131,7 +131,6 @@
     "tooltip-format": "{timeTo}",
     "max-length": 20
   },
-
   "clock": {
     "format": "{:%I:%M %p}",
     "format-alt": "{:%A, %d %B %Y}",
