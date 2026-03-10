@@ -1,35 +1,141 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 40,
+  "height": 38,
+  "spacing": 8,
   "modules-left": [
-    "hyprland/workspaces"
+    "hyprland/workspaces",
+    "hyprland/window"
   ],
   "modules-right": [
+    "custom/fullscreen",
+    "mpris",
     "network",
+    "bluetooth",
     "pulseaudio",
     "battery",
     "clock"
   ],
+
   "hyprland/workspaces": {
     "format": "{icon}",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
-    "on-scroll-down": "hyprctl dispatch workspace e-1"
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "0"
+    }
   },
+
+  "hyprland/window": {
+    "format": "{class}",
+    "max-length": 30,
+    "separate-outputs": true
+  },
+
+  "custom/fullscreen": {
+    "format": "{}",
+    "exec": "$HOME/.config/waybar/scripts/fullscreen-status.sh",
+    "interval": 1,
+    "tooltip": true,
+    "return-type": "json"
+  },
+
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "format-stopped": "",
+    "interval": 2,
+    "player": "playerctld",
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵",
+      "spotify": "🎵",
+      "firefox": "🌐",
+      "chromium": "🌐",
+      "brave": "🌐"
+    },
+    "status-icons": {
+      "playing": "▶",
+      "paused": "⏸",
+      "stopped": "⏹"
+    },
+    "max-length": 30,
+    "on-click": "playerctl play-pause"
+  },
+
   "network": {
-    "format": "NET:ONLINE",
-    "format-disconnected": ""
+    "format": "󰤨 {essid}",
+    "format-wifi": "󰤨 {essid}",
+    "format-ethernet": "󰈀 {ipaddr}",
+    "format-disconnected": "󰤭 Offline",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) \nIP: {ipaddr}",
+    "tooltip-format-ethernet": "{ifname} \nIP: {ipaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 20,
+    "on-click": "nm-connection-editor"
   },
+
+  "bluetooth": {
+    "format": "󰂯 {status}",
+    "format-disabled": "",
+    "format-connected": "󰂱 {num_connections} connected",
+    "format-connected-battery": "󰂱 {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}\n{device_battery_percentage}%",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\nBattery: {device_battery_percentage}%",
+    "max-length": 20,
+    "on-click": "blueman-manager"
+  },
+
   "pulseaudio": {
-    "format": "VOL:{volume}%",
-    "format-bluetooth": "{volume}% {icon}",
-    "format-muted": "MUTED",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 Muted",
+    "format-icons": {
+      "headphone": "󰋋",
+      "hands-free": "󰋋",
+      "headset": "󰋋",
+      "phone": "󰏲",
+      "portable": "󰏲",
+      "car": "󰄍",
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "on-click": "pamixer -t",
+    "on-scroll-up": "pamixer -i 5",
+    "on-scroll-down": "pamixer -d 5",
+    "scroll-step": 5,
+    "tooltip-format": "{desc} {volume}%"
   },
+
   "battery": {
-    "format": "BAT:{capacity}%",
+    "format": "{icon} {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂄 {capacity}%",
+    "format-full": "󰁹 {capacity}%",
+    "format-warning": "󰂃 {capacity}%",
+    "format-critical": "󰂃 {capacity}%",
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "tooltip-format": "{timeTo}",
+    "max-length": 20
   },
+
   "clock": {
     "format": "{:%I:%M %p}",
-    "format-alt": "{:%A, %d. %B  %I:%M %p}"
+    "format-alt": "{:%A, %d %B %Y}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "interval": 1
   }
 }
