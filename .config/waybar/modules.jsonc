@@ -202,16 +202,6 @@
       "power-saver": ""
     }
   },
-  "custom/power_btn": {
-    "format": "{icon}",
-    "format-icons": [
-      ""
-    ],
-    //"on-click": "sh -c'(sleep 0.5s; wlogout --protocol layer-shell)' & disown",
-    "on-click": "wlogout --protocol layer-shell",
-    "tooltip-format": "Opzioni di Spegnimento",
-    "tooltip": true
-  },
   "custom/lock_screen": {
     "format": "{icon}",
     "format-icons": [
@@ -219,18 +209,6 @@
     ],
     "on-click": "swaylock",
     "tooltip-format": "Schermata di Blocco",
-    "tooltip": true
-  },
-  "custom/updates": {
-    //"format": " {}",
-    "format": " {}",
-    // "tooltip-format": "Aggiorna il Sistema\n<small>Pacchetti: {}</small>",
-    "escape": true,
-    "return-type": "json",
-    "exec": "~/.config/waybar/scripts/updates.sh",
-    "restart-interval": 3600,
-    "on-click": "kitty --title Aggiornamenti sh -c ~/.config/waybar/scripts/installaupdates.sh",
-    "on-click-right": "kitty --title 'Pacchetti Installati' sh -c ~/.config/waybar/scripts/listpackages.sh",
     "tooltip": true
   },
   "custom/wol": {
@@ -270,14 +248,6 @@
     "exec": "~/.config/waybar/scripts/github.sh",
     "on-click": "xdg-open https://github.com/notifications",
     "tooltip": true
-  },
-  "custom/rofi": {
-    "format": "{icon} Cerca",
-    "format-icons": [
-      ""
-    ],
-    "tooltip-format": "Applicazioni",
-    "on-click": "rofi -show drun"
   },
   "custom/wl-gammarelay-temperature": {
     "format": "{} {icon}",

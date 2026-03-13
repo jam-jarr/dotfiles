@@ -19,12 +19,9 @@
     "hyprland/window"
   ],
   "modules-center": [
-    "custom/rofi",
     "hyprland/workspaces",
-    "group/exit",
     "custom/wol",
     "custom/tailscale",
-    "custom/updates",
     "custom/github"
   ],
   "modules-right": [
@@ -51,14 +48,6 @@
     "modules": [
       "pulseaudio",
       "pulseaudio#microphone"
-    ]
-  },
-  // Group Exit
-  "group/exit": {
-    "orientation": "horizontal",
-    "modules": [
-      "custom/power_btn",
-      "custom/lock_screen"
     ]
   }
 }
