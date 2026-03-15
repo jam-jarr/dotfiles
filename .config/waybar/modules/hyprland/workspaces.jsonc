@@ -4,42 +4,11 @@
     "active-only": false,
     "all-outputs": true,
     "on-click": "activate",
-    "format": "{name}{icon}{windows}",
+    "format": "{name}{icon}",
     "format-icons": {
       "urgent": "  ",
-      "default": " ",
+      "default": "",
       "empty": ""
-    },
-    "window-rewrite": { // TODO complete
-      "title<.*youtube.*>": " ",
-      "(.*) - Chromium": " ",
-      "(.*)VSCodium": "󰨞 ",
-      "class<Codium>": "󰨞 ",
-      "(.*) - Thunar": " ",
-      "class<vesktop>": " ",
-      "Steam": " ",
-      "class<org.telegram.desktop>": " ",
-      "WhatsDesk": " ",
-      "Kitty": " ",
-      "class<spotify>": " ",
-      "class<notion>": " ", // TODO add notion's symbol icon
-      "class<unityhub>": " ",
-      "class<Unity>": " ",
-      "class<zenity": " ",
-      "class<okular>": " ",
-      "title<Aggiornamenti>": " ",
-      "title<Pacchetti Installati>": " "
-    },
-    "persistent-workspaces": {
-      "*": 10,
-      "HDMI-A-1": [
-        11,
-        12
-      ],
-      "DP-1": [
-        11,
-        12
-      ]
     }
   }
 }
