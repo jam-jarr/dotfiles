@@ -9,7 +9,7 @@
     "format-disconnected": "Disconnected 󰌙",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
     "interval": 1,
-    "on-click-right": "kitty -e nmtui",
+    "on-click-right": "kitty -e wlctl",
     "max-length": 30
   }
 }
