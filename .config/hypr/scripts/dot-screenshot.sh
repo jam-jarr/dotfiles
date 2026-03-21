@@ -10,10 +10,10 @@ MODE="${1:-region}"
 
 case "${MODE}" in
 region)
-  hyprshot -m region -r --
+  hyprshot --freeze -m region -r --
   ;;
 window)
-  hyprshot -m window -r --
+  hyprshot --freeze -m window -r --
   ;;
 monitor-focused)
   grim -o "$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')" -
