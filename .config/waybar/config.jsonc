@@ -16,13 +16,14 @@
     "clock",
     "network",
     "bluetooth",
+    "idle_inhibitor",
     "hyprland/window"
   ],
   "modules-center": [
-    "hyprland/workspaces",
-    "custom/wol",
-    "custom/tailscale",
-    "custom/github"
+    "hyprland/workspaces"
+    // "custom/wol",
+    // "custom/tailscale",
+    // "custom/github"
   ],
   "modules-right": [
     "custom/media",

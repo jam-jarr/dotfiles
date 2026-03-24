@@ -112,7 +112,6 @@ tooltip {
 }
 
 
-
 /* LEFT MODULES */
 
 
@@ -133,9 +132,20 @@ tooltip {
 
 
 #bluetooth {
-    border-radius: 0 18px 18px 0px;
+    border-radius: 0px 0 0 0px;
     color: #89b4fa;
 } 
+
+#idle_inhibitor {
+    border-radius: 0 18px 18px 0px;
+    color: #89b4fa;
+    background-color: #2f354a;
+    margin: 0 0 0 0;
+    padding: 0 14px 0 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+}
 
 #window {
     background: #cdd6f4;
