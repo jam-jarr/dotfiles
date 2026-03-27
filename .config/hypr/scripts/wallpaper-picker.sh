@@ -1,8 +1,7 @@
 #!/bin/bash
-# Rofi-based wallpaper picker for swww daemon
+# Rofi-based wallpaper picker for awww daemon
 # Uses image previews to select wallpapers
 
-set -o errexit
 set -o pipefail
 set -o nounset
 
@@ -45,7 +44,7 @@ selected_name=$(for wallpaper in "${wallpapers[@]}"; do
 done |
   rofi -dmenu \
     -p "Select Wallpaper" \
-    -theme-str 'window { width: 500px; } listview { lines: 3; } element-icon { size: 200px; }' \
+    -theme-str 'window { width: 700px; } listview { lines: 5; } element-icon { size: 150px; }' \
     -theme catppuccin \
     -show-icons)
 
@@ -61,13 +60,13 @@ for wallpaper in "${wallpapers[@]}"; do
   fi
 done
 
-# Set wallpaper using swww
+# Set wallpaper using awww
 if [[ -n "${selected_wallpaper}" ]]; then
   # Get current monitor
   monitor=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
 
   # Set the wallpaper with nice transition
-  swww img "${selected_wallpaper}" \
+  awww img "${selected_wallpaper}" \
     --transition-type grow \
     --transition-pos center \
     --transition-step 90 \
