@@ -101,6 +101,11 @@ bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
+# Edit command in new nvim buffer
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 # History
 HISTSIZE=10000
 HISTFILE=~/.zsh_history
