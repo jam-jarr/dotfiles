@@ -73,5 +73,8 @@ if [[ -n "${selected_wallpaper}" ]]; then
     --transition-fps 60 \
     --transition-duration 1.0
 
+  # Update symbolic ilnk to current wallpaper
+  ln -sf "${selected_wallpaper}" "${WALLPAPER_DIR}/.current"
+
   notify-send "Wallpaper Changed" "${selected_name}" -i "${selected_wallpaper}"
 fi
