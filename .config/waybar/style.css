@@ -7,10 +7,10 @@
     min-height: 0;
 }
 
-window#waybar {
+window {
     background-color: rgba(0, 0, 0, 0);
-    border-bottom: 0.5px solid #fffff0;
-    background: rgba(21, 18, 27, 0.6);
+    background: transparent;
+    background: rgba(25, 18, 27, 0.4);
     color: #cdd6f4;
     transition-property: background-color;
     transition-duration: .5s;
@@ -34,8 +34,8 @@ tooltip {
     margin: 5px 5px 5px 5px;
     padding: 6px 5px;
     border-radius: 18px;
-    margin-top: 7px;
-    margin-bottom: 7px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     /* margin-left: 5px;
     margin-right: 5px; */
     border: 0.5px solid #032412;
@@ -68,9 +68,9 @@ tooltip {
 #workspaces button.urgent {
     background-color: #cdd6f4;
     color: #2f354a;
-    padding: 0 0 0 5px;
+    padding: 4px 0 4px 5px;
     border-radius: 16px;
-    min-width: 40px;
+    min-width: 50px;
     background-size: 300% 300%;
 }
 
@@ -104,10 +104,10 @@ tooltip {
 #custom-swaync {
     background-color: #2f354a;
     margin: 0 0 0 0;
-    padding: 0px 7px 0px 7px;
+    padding: 6px 10px 6px 10px;
     border-radius: 18px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 6px;
+    margin-bottom: 6px;
     border: none;
 }
 
@@ -141,9 +141,9 @@ tooltip {
     color: #89b4fa;
     background-color: #2f354a;
     margin: 0 0 0 0;
-    padding: 0 14px 0 0px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 6px 18px 6px 0px;
+    margin-top: 6px;
+    margin-bottom: 6px;
     border: none;
 }
 
@@ -299,6 +299,7 @@ window#waybar.empty #window {
     border-radius: 0 18px 18px 0;
     color: #cba6f7;
     margin-right: 5px;
+    padding-left: 0px;
 }
 
 #tray {
@@ -308,6 +309,7 @@ window#waybar.empty #window {
 #custom-swaync {
     border-radius: 0px 18px 18px 0px;
     margin-right: 5px;
+    padding-left: 0px;
 }
 
 #custom-updates {
