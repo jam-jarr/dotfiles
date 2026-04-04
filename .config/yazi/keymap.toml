@@ -1,0 +1,7 @@
+[mgr]
+prepend_keymap = [
+  { on = "y", run = [ 'shell -- echo %s | xclip -i -selection clipboard -t text/uri-list', "yank", ], desc = "Yank selected files to system clipboard" },
+]
+append_keymap = [
+  { on = "R", run = "rename --force --cursor=before_ext", desc = "Force rename" } 
+]
