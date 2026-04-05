@@ -68,7 +68,6 @@ tooltip {
 #workspaces button.urgent {
     background-color: #cdd6f4;
     color: #2f354a;
-    padding: 4px 0 4px 5px;
     border-radius: 16px;
     min-width: 50px;
     background-size: 300% 300%;
