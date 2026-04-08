@@ -44,7 +44,7 @@ selected_name=$(for wallpaper in "${wallpapers[@]}"; do
 done |
   rofi -dmenu \
     -p "Select Wallpaper" \
-    -theme-str 'window { width: 700px; } listview { lines: 5; } element-icon { size: 150px; }' \
+    -theme-str 'window { width: 600px; } listview { lines: 5; } element-icon { size: 150px; }' \
     -theme catppuccin \
     -show-icons)
 
