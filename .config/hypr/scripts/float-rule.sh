@@ -7,7 +7,7 @@ title=$(hyprctl activewindow -j | jq -r '.title')
 
 # Append
 
-rule="windowrule = float = on, match:class = $class, match:title = $title"
+rule="windowrule = float on, match:class $class, match:title $title"
 
 echo "$rule" >>~/.config/hypr/hyprland-floatlist.conf
 
