@@ -1,0 +1,2 @@
+# Ignore snapshot directory
+--glob=!.snapshots
