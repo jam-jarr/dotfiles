@@ -1,10 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 # Take a screenshot in a number of different ways. Any of the case statement
 # options can be passed in as a value.
 
-set -o errexit
-set -o pipefail
-set -o nounset
+set -eux
 
 MODE="${1:-region}"
 
