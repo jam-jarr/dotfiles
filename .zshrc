@@ -9,9 +9,12 @@ if [ -f "$HOME/.local/bin/env" ]; then
   . "$HOME/.local/bin/env"
 fi
 
-if [ -d "$HOME/.local/bin" ]; then
-  export PATH="$HOME/.local/bin:$PATH"
-fi
+# Add dirs to path
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:/opt/nvim/"
+export PATH=/home/jamjar/.opencode/bin:$PATH
+export PATH="$HOME/scripts:$PATH"
+
 
 for f in "$HOME"/.config/shell-functions/*; do source "$f"; done
 
@@ -50,13 +53,8 @@ function y() {
   rm -f -- "$tmp"
 }
 
-export PATH="$PATH:/opt/nvim/"
-
 # Set default editor
 export EDITOR=nvim
-
-# opencode
-export PATH=/home/jamjar/.opencode/bin:$PATH
 
 # source /home/jamjar/.config/broot/launcher/bash/br
 
