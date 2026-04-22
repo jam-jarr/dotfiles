@@ -1,14 +1,12 @@
 #!/bin/sh
-HYPRGAMEMODE=$(hyprctl getoption decoration:blur:enabled | awk 'NR==1{print $2}')
+HYPRGAMEMODE=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
 if [ "$HYPRGAMEMODE" = 1 ]; then
   hyprctl --batch "\
-        keyword decoration:blur:enabled false"
-  swaync-client -dn
-  hyprctl notify 1 5000 "rgb(40a02b)" "Hyprfocus [ON]"
+        keyword animations:enabled 0;"
+  notify-send -t 700 -u low --transient --icon="$ICON_FILE" "Hyprfocus [ON]"
   exit
 else
-  hyprctl notify 1 5000 "rgb(d20f39)" "Hyprfocus [OFF]"
-  swaync-client -df
+  notify-send -t 700 -u low --transient --icon="$ICON_FILE" "Hyprfocus [OFF]"
   hyprctl reload
   exit 0
 fi
