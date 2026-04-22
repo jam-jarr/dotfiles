@@ -38,4 +38,4 @@ hyprctl keyword workspace "$workspace_id",layout:"$next_layout" >/dev/null 2>&1
 echo "$next_layout" >"$layout_file"
 
 # Send notification
-notify-send -t 2000 -u low --transient --icon="/home/jamjar/dotfiles/.config/hypr/icons/hypr.ico" "Layout changed" "Workspace $workspace_id: ${next_layout^^}"
+notify-send -t 2000 -u low --transient --icon="/home/jamjar/dotfiles/.config/hypr/icons/hypr.ico" "Layout changed" "Workspace $workspace_id: ${next_layout}"

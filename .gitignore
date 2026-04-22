@@ -1,2 +1,3 @@
 .config/tmux/plugins
 /.opencode
+/.config/hypr/hyproverrules.conf
