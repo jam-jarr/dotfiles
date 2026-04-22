@@ -1,5 +1,7 @@
 #!/bin/sh
 
+icon_file="/home/jamjar/dotfiles/.config/hypr/icons/hypr.ico"
+
 # Define the layout cycle (scrolling -> dwindle -> master -> scrolling)
 layouts="scrolling dwindle master"
 
@@ -22,5 +24,7 @@ done
 # Apply the new layout
 hyprctl keyword workspace "$workspace_id",layout:"$next_layout" >/dev/null 2>&1
 
+layout_text=$(echo "$next_layout" | tr '[:lower:]' '[:upper:]')
+
 # Send notification
-notify-send -t 2000 -u low --transient --icon="/home/jamjar/dotfiles/.config/hypr/icons/hypr.ico" "Layout changed" "Workspace $workspace_id: ${next_layout}"
+notify-send -t 700 -u low --transient --icon="$icon_file" "Layout: ${layout_text}"
