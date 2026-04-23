@@ -13,7 +13,6 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:/opt/nvim/"
 export PATH=/home/jamjar/.opencode/bin:$PATH
-export PATH="$HOME/scripts:$PATH"
 
 
 for f in "$HOME"/.config/shell-functions/*; do source "$f"; done
