@@ -104,7 +104,7 @@ zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
 # History
-HISTSIZE=10000
+HISTSIZE=100000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
