@@ -28,23 +28,23 @@ detect_package_manager() {
 }
 
 install_via_apt() {
-  local packages=(zoxide zsh git fzf tmux fd-find ripgrep neovim)
+  local packages=(zoxide zsh git fzf tmux fd-find ripgrep neovim lsd)
   sudo apt update
   sudo apt install -y "${packages[@]}"
 }
 
 install_via_dnf() {
-  local packages=(zoxide zsh git fzf tmux fd-find ripgrep neovim)
+  local packages=(zoxide zsh git fzf tmux fd-find ripgrep neovim lsd)
   sudo dnf install -y "${packages[@]}"
 }
 
 install_via_pacman() {
-  local packages=(zoxide zsh git fzf tmux fd ripgrep neovim)
+  local packages=(zoxide zsh git fzf tmux fd ripgrep neovim lsd)
   sudo pacman -Sy --noconfirm "${packages[@]}"
 }
 
 install_via_zypper() {
-  local packages=(zoxide zsh git fzf tmux fd ripgrep neovim)
+  local packages=(zoxide zsh git fzf tmux fd ripgrep neovim lsd)
   sudo zypper install -y "${packages[@]}"
 }
 
