@@ -144,3 +144,7 @@ function y() {
   [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
   rm -f -- "$tmp"
 }
+
+# Lets virsh see libvirt manager VMs
+# Needed for WinApps
+export LIBVIRT_DEFAULT_URI="qemu:///system"
