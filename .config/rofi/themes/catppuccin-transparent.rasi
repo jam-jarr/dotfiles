@@ -1,94 +1,117 @@
 // Rofi Configuration
 // Author: Binoy Manoj
 // GitHub: https://github.com/binoymanoj
+// Glass-morphism style theme - inspired by modern glass UI designs
 
 * {
-    bg-col: #11111bcc;
-    bg-col-light: #313244;
-    border-col: #9199CB;
-    selected-col: #313244;
-    purple: #9199CB;
-    fg-col: #cdd6f4;
-    fg-col2: #9199CB;
+    // Glass-morphism color palette
+    bg: transparent;
+    bg-glass: rgba(30, 35, 50, 0.55);
+    bg-glass-light: rgba(255, 255, 255, 0.1);
+    bg-selected: rgba(255, 255, 255, 0.2);
+    border: rgba(255, 255, 255, 0.25);
+    fg: #ffffff;
+    fg-dim: rgba(255, 255, 255, 0.6);
+    fg-selected: #ffffff;
+    accent: #89b4fa;
     width: 600px;
 }
 
 window {
     transparency: "real";
-    background-color: @bg-col;
+    background-color: rgba(20, 25, 35, 0.75);
     border: 2px;
-    border-color: @border-col;
-    border-radius: 15px;
+    border-color: rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    border-aa: true;
+    location: center;
+    anchor: center;
+    x-offset: 0px;
+    y-offset: 0px;
 }
 
 mainbox {
     background-color: transparent;
+    spacing: 0px;
+    padding: 24px;
+    children: [inputbar, listview];
 }
 
 inputbar {
     children: [prompt, entry];
     background-color: transparent;
-    border-radius: 10px;
-    padding: 2px;
-    margin: 0px 5px 0px 0px;
+    border-radius: 15px; 
+    spacing: 12px;
+    padding: 4px 0px 20px 4px;
+    margin: 0px 0px 8px 0px;
 }
 
 prompt {
-    background-color: @purple;
-    padding: 10px;
-    text-color: @bg-col;
-    border-radius: 10px;
-    margin: 5px 0px 0px 5px;
+    background-color: transparent;
+    padding: 0px;
+    text-color: @fg-dim;
+    font: "JetBrainsMono Nerd Font 16";
+    str: "󰍉";
 }
 
 textbox-prompt-colon {
     expand: false;
-    str: ":";
+    str: "";
 }
 
 entry {
-    padding: 10px;
-    margin: 5px 0px 0px 5px;
-    text-color: @fg-col;
-    background-color: @bg-col-light;
-    border-radius: 10px;
+    padding: 0px;
+    margin: 0px;
+    text-color: @fg;
+    background-color: transparent;
+    font: "JetBrainsMono Nerd Font 16";
+    placeholder-color: @fg-dim;
+    cursor: text;
+    vertical-align: 0.5;
 }
 
 listview {
-    border: 0px 0px 0px;
-    padding: 6px 0px 0px;
-    margin: 10px 5px 5px 5px;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
     columns: 1;
-    lines: 8;
+    lines: 6;
     background-color: transparent;
+    spacing: 4px;
+    dynamic: true;
+    scrollbar: false;
 }
 
 element {
-    padding: 8px;
+    padding: 12px 16px;
     background-color: transparent;
-    border-radius: 10px;
-    text-color: @fg-col;
+    border-radius: 12px;
+    text-color: @fg;
+    spacing: 16px;
+    cursor: pointer;
 }
 
 element-icon {
     size: 32px;
-    padding: 0px 10px 0px 0px;
+    padding: 0px;
     background-color: transparent;
 }
 
 element-text {
     background-color: transparent;
-    text-color: @fg-col;
+    text-color: inherit;
     vertical-align: 0.5;
+    font: "JetBrainsMono Nerd Font 14";
 }
 
 element selected {
-    background-color: @selected-col;
-    text-color: @fg-col2;
+    background-color: @bg-selected;
+    text-color: @fg-selected;
 }
 
 element-text selected {
-    text-color: @fg-col2;
+    text-color: @fg-selected;
+    background-color: transparent;
 }
 
 element-icon selected {
@@ -96,30 +119,44 @@ element-icon selected {
 }
 
 mode-switcher {
-    spacing: 0;
+    spacing: 8px;
+    margin: 16px 0px 0px 0px;
 }
 
 button {
-    padding: 10px;
-    background-color: @bg-col-light;
-    text-color: @fg-col;
+    padding: 8px 12px;
+    background-color: @bg-glass-light;
+    text-color: @fg;
     vertical-align: 0.5;
     horizontal-align: 0.5;
+    border-radius: 8px;
+    font: "JetBrainsMono Nerd Font 12";
+    cursor: pointer;
 }
 
 button selected {
-    background-color: @bg-col;
-    text-color: @fg-col2;
+    background-color: @bg-selected;
+    text-color: @accent;
 }
 
 message {
-    padding: 10px;
-    background-color: @bg-col-light;
-    border-radius: 10px;
+    padding: 12px;
+    background-color: @bg-glass-light;
+    border-radius: 12px;
+    margin: 0px 0px 12px 0px;
 }
 
 textbox {
-    text-color: @fg-col;
+    text-color: @fg;
     background-color: inherit;
-} 
+    font: "JetBrainsMono Nerd Font 12";
+}
 
+// Hide unused widgets
+num-filtered-rows, num-rows {
+    enabled: false;
+}
+
+case-indicator {
+    enabled: false;
+}
