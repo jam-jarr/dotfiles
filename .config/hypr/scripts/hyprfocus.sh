@@ -7,10 +7,9 @@ if [ "$HYPRGAMEMODE" = 1 ]; then
   hyprctl --batch "\
         keyword animations:enabled 0;"
   notify-send -t 700 -u low --transient --icon="$ICON_FILE_ON" "Hyprfocus [ON]"
-  exit
+  exit 0
 else
   notify-send -t 700 -u low --transient --icon="$ICON_FILE_OFF" "Hyprfocus [OFF]"
   hyprctl reload
   exit 0
 fi
-exit 1
