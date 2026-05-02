@@ -10,18 +10,18 @@ configuration {
     location: 0;
     disable-history: false;
     hide-scrollbar: true;
-    display-drun: " Apps";
-    display-run: " Run";
-    display-window: " Window";
-    display-filebrowser: " Location";
-    display-Network: " Network";
+    display-drun: "Apps";
+    display-run: "Run";
+    display-window: "Window";
+    display-filebrowser: "Location";
+    display-Network: "Network";
     // sidebar-mode: true;
     
     //adding vim keybindings
-    kb-row-up: "Up,Control+k";
-    kb-row-left: "Left,Control+h";
-    kb-row-right: "Right,Control+l";
-    kb-row-down: "Down,Control+j";
+    kb-mode-next:  "Right,Control+l";
+    kb-mode-previous: "Left,Control+h";
+    kb-row-up: "Up,Control+k,Control+p";
+    kb-row-down: "Down,Control+j,Control+n";
 
     kb-accept-entry: "Control+z,Control+y,Return,KP_Enter";
     
