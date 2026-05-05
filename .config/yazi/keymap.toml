@@ -4,6 +4,7 @@ prepend_keymap = [
     'shell -- echo %s | xclip -i -selection clipboard -t text/uri-list',
     "yank",
   ], desc = "Yank selected files to system clipboard" },
+  { on = "M", run = "plugin mount", desc = "Mount selected files" },
 ]
 append_keymap = [
   { on = "R", run = "rename --force --cursor=before_ext", desc = "Force rename" },
@@ -31,4 +32,8 @@ append_keymap = [
     "g",
     "v",
   ], run = "cd ~/obsidian/the-vault", desc = "Go to Vault" },
+  { on = [
+    "g",
+    "V",
+  ], run = "cd ~/Videos/", desc = "Go to Videos" },
 ]

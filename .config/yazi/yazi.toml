@@ -6,3 +6,5 @@ satty = [{ run = 'satty --filename %s', orphan = true, desc = "satty" }]
 [open]
 prepend_rules = [{ mime = "image/*", use = ["open", "satty"] }]
 
+[mgr]
+sort_by = "natural"
