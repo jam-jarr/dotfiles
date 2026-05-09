@@ -12,7 +12,7 @@
 @define-color color-cyan #8be9fd;
 @define-color color-orange #d99280;
 @define-color color-spotify #1db954;
-@define-color bg-workspace rgba(8, 7, 10, 0.6);
+@define-color bg-workspace rgba(30, 30, 30, 0.8);
 @define-color bg-tooltip rgba(8, 7, 10, 0.8);
 
 * {
@@ -53,6 +53,7 @@ tooltip {
 
 #workspaces button {
     padding: 0px 10px;
+    border-radius: 9px;
     margin: 0 1px;
     color: @color-text;
     transition: all 0.3s ease-in-out;
@@ -66,8 +67,7 @@ tooltip {
     color: @color-bg;
     background-color: @color-text;
     border-radius: 16px;
-    min-width: 50px;
-    background-size: 400% 400%;
+    min-width: 35px;
     transition: all 0.3s ease-in-out;
     /*opacity: 1.0;*/
 }
@@ -142,6 +142,7 @@ tooltip {
 #window {
     border-radius: 0 0 18px 18px;
     margin-left: 20px;
+    margin-right: 20px;
     padding: 0 18px;
     padding-bottom: 2px;
 }
@@ -210,7 +211,9 @@ window#waybar.empty #window {
 /* RIGHT MODULES */
 
 #custom-media {
-    padding-right: 10px;
+    padding: 0 15px;
+    margin-right: 20px;
+    border-radius: 0 0 18px 18px;
 }
 
 #custom-media.custom-spotify {
