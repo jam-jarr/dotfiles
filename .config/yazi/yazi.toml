@@ -3,8 +3,19 @@ edit = [{ run = 'nvim "$@"', block = true }]
 
 satty = [{ run = 'satty --filename %s', orphan = true, desc = "satty" }]
 
+haruna = [{ run = 'haruna %s', orphan = true, desc = "haruna" }]
+
 [open]
-prepend_rules = [{ mime = "image/*", use = ["open", "satty"] }]
+prepend_rules = [
+  { mime = "image/*", use = [
+    "open",
+    "satty",
+  ] },
+  { mime = "video/*", use = [
+    "open",
+    "haruna",
+  ] },
+]
 
 [mgr]
 sort_by = "natural"
