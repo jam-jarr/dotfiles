@@ -55,12 +55,12 @@ function y() {
 # Set default editor
 export EDITOR=nvim
 
-# source /home/jamjar/.config/broot/launcher/bash/br
-
+# bash/zsh aliases
 if [ -f ~/.aliases ]; then
   . ~/.aliases
 fi
 
+# zsh specific aliases
 if [ -f ~/.zaliases ]; then
   . ~/.zaliases
 fi
@@ -133,3 +133,8 @@ eval "$(zoxide init --cmd cd zsh)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# untracked extensions to .zshrc (keep this at the bottom)
+if [ -f ~/.zshrc_ext ]; then
+  . ~/.zshrc_ext
+fi
