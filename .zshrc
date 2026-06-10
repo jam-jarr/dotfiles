@@ -52,9 +52,6 @@ function y() {
   rm -f -- "$tmp"
 }
 
-# Set default editor
-export EDITOR=nvim
-
 # bash/zsh aliases
 if [ -f ~/.aliases ]; then
   . ~/.aliases
