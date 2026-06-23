@@ -7,6 +7,14 @@ haruna = [{ run = 'haruna %s', orphan = true, desc = "haruna" }]
 
 mpv = [{ run = 'mpv %s', orphan = true, desc = "mpv" }]
 
+picker = [
+  { run = '~/scripts/open-with.sh "$@"', block = true, desc = "App Picker" },
+]
+
+handlr_picker = [
+  { run = '~/scripts/handlr-open.sh', desc = "Open With (Handlr)", block = true },
+]
+
 [open]
 prepend_rules = [
   { mime = "image/*", use = [
@@ -17,6 +25,12 @@ prepend_rules = [
     "open",
     "haruna",
     "mpv",
+    "picker",
+    "handlr_picker",
+  ] },
+  { mime = "*", use = [
+    "picker",
+    "handlr_picker",
   ] },
 ]
 

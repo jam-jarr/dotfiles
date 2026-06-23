@@ -1,3 +1,4 @@
+# vim: ft=sh
 # A few nice things
 alias less='less -r'             # raw control characters
 alias whence='type -a'           # where, of a sort
@@ -35,11 +36,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # User defined functions
-function monlog() {
-  tail -f $1 | bat -l log --paging=never
+monlog() {
+  tail -f "$1" | bat -l log --paging=never
 }
-
-# Directory shortcuts
-if [ -f ~/.bash_aliases_untracked ]; then
-  . ~/.bash_aliases_untracked
-fi
