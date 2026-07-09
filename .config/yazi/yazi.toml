@@ -3,13 +3,14 @@ edit = [{ run = 'nvim "$@"', block = true }]
 
 satty = [{ run = 'satty --filename %s', orphan = true, desc = "satty" }]
 
-haruna = [{ run = 'haruna %s', orphan = true, desc = "haruna" }]
-
 mpv = [{ run = 'mpv %s', orphan = true, desc = "mpv" }]
 
 picker = [
   { run = '~/scripts/open-with.sh "$@"', block = true, desc = "App Picker" },
 ]
+
+zathura = [{ run = 'zathura %s', orphan = true, desc = "zathura" }]
+okular = [{ run = 'okular %s', orphan = true, desc = "okular" }]
 
 [open]
 prepend_rules = [
@@ -20,14 +21,22 @@ prepend_rules = [
   ] },
   { mime = "video/*", use = [
     "open",
-    "haruna",
     "mpv",
     "picker",
   ] },
-  { mime = "*", use = [
+  { mime = "application/pdf", use = [
+    "open",
+    "okular",
+    "picker",
+  ] },
+  { mime = "application/epub+zip", use = [
+    "open",
+    "zathura",
     "picker",
   ] },
 ]
+
+append_rules = [{ mime = "*", use = ["picker"] }]
 
 [mgr]
 sort_by = "natural"

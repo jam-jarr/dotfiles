@@ -36,4 +36,8 @@ append_keymap = [
     "g",
     "V",
   ], run = "cd ~/Videos/", desc = "Go to Videos" },
+  { on = [
+    "g",
+    ";",
+  ], run = "shell --orphan kitty", desc = "Open Kitty Here" },
 ]
