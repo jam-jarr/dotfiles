@@ -117,8 +117,11 @@ setopt correct
 # Completion
 zstyle ':completion:*' menu no
 
-# Keychain for SSH
-eval $(keychain -q --eval ~/.ssh/id_ed25519)
+# Keychain for SSH, better for non graphical environments
+# eval $(keychain -q --eval ~/.ssh/id_ed25519)
+
+# Use GNOME Keyring as the SSH agent
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
 
 # oh-my-posh
 eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/macchiato.json)"
@@ -132,6 +135,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # untracked extensions to .zshrc (keep this at the bottom)
+export PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 if [ -f ~/.zshrc_ext ]; then
   . ~/.zshrc_ext
 fi
