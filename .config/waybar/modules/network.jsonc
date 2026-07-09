@@ -9,7 +9,7 @@
     "format-disconnected": "Disconnected 󰌙",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
     "interval": 1,
-    "on-click-right": "kitty -e wlctl",
+    "on-click-right": "kitty -e impala",
     "max-length": 30
   }
 }
