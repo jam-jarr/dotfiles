@@ -1,0 +1,8 @@
+enable_selector = true
+
+# Use fzf for the picker (terminal-friendly)
+# The %c placeholder is where the list of apps will be injected
+selector = "fzf --prompt='Open with: ' --height=40% --layout=reverse --border"
+
+# Optional: Tell handlr how to run terminal-based apps (like vim)
+term_exec_args = "-e" # Works for most terminals like kitty, alacritty, foot
