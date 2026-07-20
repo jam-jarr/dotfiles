@@ -8,6 +8,6 @@
   done
 ) &
 
-/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/opt/stremio/stremio --file-forwarding com.stremio.Stremio @@u %U @@
+/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=stremio --file-forwarding com.stremio.Stremio @@u %U @@
 
 # nordvpn disconnect
