@@ -119,7 +119,7 @@ hl.config({
 
 	scrolling = {
 		column_width = 0.666,
-		explicit_column_widths = "0.333, 0.666, 0.985",
+		explicit_column_widths = "0.33333, 0.66666, 0.985",
 		follow_min_visible = 0.3,
 	},
 	dwindle = {
@@ -212,6 +212,8 @@ hl.gesture({
 	action = "workspace",
 })
 
+hl.gesture({ fingers = 3, direction = "horizontal", action = "scroll_move" })
+
 hl.gesture({ fingers = 3, direction = "pinch", action = "cursorZoom", zoom_level = 1, mode = "live" })
 
 -- Close graphical session
@@ -234,6 +236,7 @@ mbind(
 	hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\"")
 )
 mbind("SHIFT + E", hl.dsp.exec_cmd("rofimoji --skin-tone neutral --max-recent 0"))
+mbind("N", hl.dsp.exec_cmd(notificationMenu))
 
 -- Scrolling
 mbind("period", hl.dsp.layout("swapcol r"))
@@ -333,6 +336,15 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 -- Utilities
 mbind("SHIFT + I", hl.dsp.exec_cmd(windowInfo))
 mbind("SHIFT + O", hl.dsp.exec_cmd("hyprshot --freeze -m region -r -- | tesseract stdin stdout | wl-copy"))
+hl.bind(
+	"Print",
+	hl.dsp.exec_cmd(
+		'hyprshot -s --clipboard-only --freeze -m region && notify-send "Copied to clipboard" --transient -t 900'
+	)
+)
+mbind("Print", hl.dsp.exec_cmd(screenshotter .. " window"))
+mbind("SHIFT + Print", hl.dsp.exec_cmd(screenshotter .. " region"))
+mbind("CONTROL + Print", hl.dsp.exec_cmd(screenshotter .. " monitor-all"))
 
 -- COMPLEX BINDS
 hl.bind(mainMod .. " + SHIFT + G", function()

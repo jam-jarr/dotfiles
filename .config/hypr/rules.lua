@@ -99,11 +99,18 @@ hl.window_rule({ match = { class = "org.pwmt.zathura" }, opacity = 1 })
 hl.window_rule({
 	name = "neovim-xray",
 	match = {
-		class = "kitty",
 		workspace = "special:magic",
 	},
 	xray = false,
 	no_blur = true,
 	opacity = 0.80,
 	border_size = 2,
+})
+
+hl.layer_rule({
+	name = "rofi",
+	match = {
+		namespace = "rofi",
+	},
+	blur = true,
 })
