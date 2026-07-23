@@ -13,6 +13,7 @@ local notificationMenu = "sleep 0.1 && swaync-client -t -sw"
 local screenshotter = "~/.config/hypr/scripts/dot-screenshot.sh"
 local clipboardManager = "cliphist list | rofi -dmenu -display- columns 2 -i | cliphist decode | wl-copy"
 local windowInfo = "~/.config/hypr/scripts/windowinfo.sh"
+local addWindowRule = "~/.config/hypr/scripts/add-window-rule.sh"
 
 local autostart = {
 	"hypridle",
@@ -120,7 +121,7 @@ hl.config({
 	scrolling = {
 		column_width = 0.666,
 		explicit_column_widths = "0.33333, 0.66666, 0.985",
-		follow_min_visible = 0.3,
+		-- follow_min_visible = 0.3,
 	},
 	dwindle = {
 		preserve_split = true,
@@ -345,15 +346,21 @@ hl.bind(
 mbind("Print", hl.dsp.exec_cmd(screenshotter .. " window"))
 mbind("SHIFT + Print", hl.dsp.exec_cmd(screenshotter .. " region"))
 mbind("CONTROL + Print", hl.dsp.exec_cmd(screenshotter .. " monitor-all"))
+mbind("ALT + L", hl.dsp.exec_cmd("hyprlock"))
+mbind("ALT + R", hl.dsp.exec_cmd(addWindowRule))
 
 -- COMPLEX BINDS
-hl.bind(mainMod .. " + SHIFT + G", function()
-	local blur = hl.get_config("blur.enabled") == false
-	if blur then
-		hl.config({ blur = { enabled = false } })
-	else
-		hl.config({ blur = { enabled = true } })
-	end
+local transparency = hl.window_rule({
+	name = "transparency-general",
+	match = {
+		class = ".*",
+	},
+	opacity = "0.93 0.93 1",
+	xray = true,
+})
+
+mbind("SHIFT + T", function()
+	transparency:set_enabled(not transparency:is_enabled())
 end)
 
 require("rules")

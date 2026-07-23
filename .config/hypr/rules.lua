@@ -1,13 +1,4 @@
 hl.window_rule({
-	name = "transparency-general",
-	match = {
-		class = ".*",
-	},
-	opacity = "0.93 0.93 1",
-	xray = true,
-})
-
-hl.window_rule({
 	name = "suppress-maximize-events",
 	match = {
 		class = ".*",
@@ -114,3 +105,15 @@ hl.layer_rule({
 	},
 	blur = true,
 })
+
+-- Security
+hl.window_rule({
+	name = "keepassxc-block-capture",
+	match = {
+		class = "org.keepassxc.KeePassXC",
+	},
+	no_screen_share = true,
+})
+
+-- Auto-generated
+hl.window_rule({ match = { class = "org.kde.okular" }, opacity = 1 })
