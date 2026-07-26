@@ -6,10 +6,7 @@ set -o pipefail
 set -o nounset
 
 # Configuration - change this to your wallpaper directory
-WALLPAPER_DIR="${HOME}/.config/wallpapers"
-
-# Supported image extensions
-EXTENSIONS="jpg|jpeg|png|gif|webp|bmp"
+WALLPAPER_DIR="${HOME}/Pictures/Wallpapers"
 
 # Ensure wallpaper directory exists
 if [[ ! -d "${WALLPAPER_DIR}" ]]; then
@@ -75,5 +72,5 @@ if [[ -n "${selected_wallpaper}" ]]; then
   # Update symbolic ilnk to current wallpaper
   ln -sf "${selected_wallpaper}" "${WALLPAPER_DIR}/.current"
 
-  notify-send "Wallpaper Changed" "${selected_name}" -i "${selected_wallpaper}"
+  notify-send "Wallpaper Changed" "${selected_name}" -i "${selected_wallpaper}" --transient
 fi
