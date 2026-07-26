@@ -1,3 +1,3 @@
 map E exec "okular '$FILE' -p '$PAGE'"
 
-set scroll-full-overlap 0.2
+set scroll-full-overlap 0.1

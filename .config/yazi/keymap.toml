@@ -8,6 +8,7 @@ prepend_keymap = [
 ]
 append_keymap = [
   { on = "R", run = "rename --force --cursor=before_ext", desc = "Force rename" },
+  { on = "r", run = "rename --hovered=no", desc = "Rename selected file(s)" },
   { on = [
     "g",
     "t",
@@ -18,8 +19,12 @@ append_keymap = [
   ], run = "cd ~/Documents", desc = "Go to Documents" },
   { on = [
     "g",
+    "e",
+  ], run = "cd ~/Desktop/", desc = "Go to Desktop" },
+  { on = [
+    "g",
     "p",
-  ], run = "cd ~/projects/", desc = "Go to Projects" },
+  ], run = "cd ~/Projects/", desc = "Go to Projects" },
   { on = [
     "g",
     "P",
