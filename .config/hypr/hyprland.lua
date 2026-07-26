@@ -28,7 +28,7 @@ local autostart = {
 	"/usr/lib/kdeconnectd",
 	"kdeconnect-indicator",
 
-	-- IDR
+	-- IDR lmao
 	"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP",
 
 	-- Wallpaper daemon
@@ -37,6 +37,9 @@ local autostart = {
 	-- Authentication management
 	"systemctl --user start hyprpolkitagent",
 	"systemctl --user start hyprland-session.target",
+
+	-- Allow playerctl to act on the most recent media player
+	"playerctld daemon",
 }
 
 hl.on("hyprland.start", function()
@@ -46,8 +49,8 @@ hl.on("hyprland.start", function()
 end)
 
 local shutdown = {
-	"systemctl --user stop hyprland-session.target && sleep 0.1",
 	"pkill awww",
+	"systemctl --user stop hyprland-session.target && sleep 0.1",
 }
 
 hl.on("hyprland.shutdown", function()
@@ -119,7 +122,7 @@ hl.config({
 	},
 
 	scrolling = {
-		column_width = 0.666,
+		column_width = 0.66666,
 		explicit_column_widths = "0.33333, 0.66666, 0.985",
 		-- follow_min_visible = 0.3,
 	},
@@ -220,16 +223,20 @@ hl.gesture({ fingers = 3, direction = "pinch", action = "cursorZoom", zoom_level
 -- Close graphical session
 mbind("CONTROL + SHIFT + Q", hl.dsp.exec_cmd("hyprshutdown -t 'Shutting Down' --verbose"))
 
+-- Pickers
 mbind("Return", hl.dsp.exec_cmd(terminal))
 mbind("SHIFT + Return", hl.dsp.exec_cmd(terminal, { float = true, size = { 700, 550 } }))
-mbind("E", hl.dsp.exec_cmd(fileManager))
 
+-- Programs
+mbind("E", hl.dsp.exec_cmd(fileManager))
 mbind("B", hl.dsp.exec_cmd("kitty -e bluetui"))
 mbind("SHIFT + B", hl.dsp.exec_cmd("rfkill toggle bluetooth"))
+mbind("N", hl.dsp.exec_cmd(notificationMenu))
+mbind("SHIFT + N", hl.dsp.exec_cmd("kitty -e impala"))
 
+-- Rofi scripts
 mbind("Space", hl.dsp.exec_cmd(menu))
 mbind("SHIFT + Space", hl.dsp.exec_cmd(windowselector))
-
 mbind("SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-picker.sh"))
 mbind("V", hl.dsp.exec_cmd(clipboardManager))
 mbind(
@@ -237,27 +244,38 @@ mbind(
 	hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\"")
 )
 mbind("SHIFT + E", hl.dsp.exec_cmd("rofimoji --skin-tone neutral --max-recent 0"))
-mbind("N", hl.dsp.exec_cmd(notificationMenu))
-
--- Scrolling
-mbind("period", hl.dsp.layout("swapcol r"))
-mbind("comma", hl.dsp.layout("swapcol l"))
-mbind("M", hl.dsp.layout("fit visible"))
-mbind("SHIFT + M", hl.dsp.layout("fit all"))
-mbind("CONTROL + M", hl.dsp.layout("fit expand"))
-mbind("SHIFT + period", hl.dsp.layout("colresize +conf"))
-mbind("SHIFT + comma", hl.dsp.layout("colresize -conf"))
-mbind("P", hl.dsp.layout("promote"))
+mbind("CONTROL + E", hl.dsp.exec_cmd("rofimoji -f general_punctuation.csv"))
+-- Consider creating a rofi script to choose the file; files are located in "/usr/lib/python3.14/site-packages/picker/data"
+mbind("ALT + E", hl.dsp.exec_cmd("rofimoji -f html_characters.csv"))
 
 -- Window management
 mbind("SHIFT + D", hl.dsp.window.close())
 mbind("F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 mbind("SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 mbind("SHIFT + V", hl.dsp.window.float())
-mbind("Tab", hl.dsp.focus({ workspace = "previous" }))
 mbind("T", hl.dsp.window.set_prop({ prop = "opaque", value = "toggle" }))
 
--- Universal window movement
+-- Scrolling
+mbind(
+	"P",
+	layout_bind({
+		scrolling = hl.dsp.layout("promote"),
+		other = hl.dsp.window.pseudo(),
+	})
+)
+mbind("M", hl.dsp.layout("fit visible"))
+mbind("SHIFT + M", hl.dsp.layout("fit all"))
+mbind("CONTROL + M", hl.dsp.layout("fit expand"))
+mbind("SHIFT + period", hl.dsp.layout("colresize +conf"))
+mbind("SHIFT + comma", hl.dsp.layout("colresize -conf"))
+mbind("period", hl.dsp.layout("swapcol r"))
+mbind("comma", hl.dsp.layout("swapcol l"))
+
+mbind("SHIFT + H", hl.dsp.window.move({ direction = "l", window = "activewindow" }))
+mbind("SHIFT + L", hl.dsp.window.move({ direction = "r", window = "activewindow" }))
+mbind("SHIFT + K", hl.dsp.window.move({ direction = "u", window = "activewindow" }))
+mbind("SHIFT + J", hl.dsp.window.move({ direction = "d", window = "activewindow" }))
+
 mbind(
 	"H",
 	layout_bind({
@@ -265,7 +283,6 @@ mbind(
 		other = hl.dsp.focus({ direction = "l" }),
 	})
 )
-
 mbind(
 	"L",
 	layout_bind({
@@ -276,24 +293,20 @@ mbind(
 mbind("K", hl.dsp.focus({ direction = "u" }))
 mbind("J", hl.dsp.focus({ direction = "d" }))
 
-mbind("SHIFT + H", hl.dsp.window.move({ direction = "l", window = "activewindow" }))
-mbind("SHIFT + L", hl.dsp.window.move({ direction = "r", window = "activewindow" }))
-mbind("SHIFT + K", hl.dsp.window.move({ direction = "u", window = "activewindow" }))
-mbind("SHIFT + J", hl.dsp.window.move({ direction = "d", window = "activewindow" }))
-
--- Move workspace to monitor
-mbind("CONTROL + H", hl.dsp.workspace.move({ workspace = "m", monitor = "l" }))
-mbind("CONTROL + L", hl.dsp.workspace.move({ workspace = "m", monitor = "r" }))
-mbind("CONTROL + K", hl.dsp.workspace.move({ workspace = "m", monitor = "u" }))
-mbind("CONTROL + J", hl.dsp.workspace.move({ workspace = "m", monitor = "d" }))
-
--- Workspaces
+-- Workspace management
 mbind(0, hl.dsp.focus({ workspace = 10 }))
 mbind("SHIFT + " .. 0, hl.dsp.window.move({ workspace = 10, window = "activewindow", follow = true }))
 for i = 1, 9 do
 	mbind(i, hl.dsp.focus({ workspace = i }))
 	mbind("SHIFT + " .. i, hl.dsp.window.move({ workspace = i, window = "activewindow", follow = true }))
 end
+mbind("Tab", hl.dsp.focus({ workspace = "previous" }))
+
+-- Move workspace to monitor
+mbind("CONTROL + H", hl.dsp.workspace.move({ workspace = "m", monitor = "l" }))
+mbind("CONTROL + L", hl.dsp.workspace.move({ workspace = "m", monitor = "r" }))
+mbind("CONTROL + K", hl.dsp.workspace.move({ workspace = "m", monitor = "u" }))
+mbind("CONTROL + J", hl.dsp.workspace.move({ workspace = "m", monitor = "d" }))
 
 -- Scratchpad
 mbind("S", hl.dsp.workspace.toggle_special("magic"))
@@ -347,7 +360,7 @@ mbind("Print", hl.dsp.exec_cmd(screenshotter .. " window"))
 mbind("SHIFT + Print", hl.dsp.exec_cmd(screenshotter .. " region"))
 mbind("CONTROL + Print", hl.dsp.exec_cmd(screenshotter .. " monitor-all"))
 mbind("ALT + L", hl.dsp.exec_cmd("hyprlock"))
-mbind("ALT + R", hl.dsp.exec_cmd(addWindowRule))
+mbind("SHIFT + R", hl.dsp.exec_cmd(addWindowRule))
 
 -- COMPLEX BINDS
 local transparency = hl.window_rule({
@@ -361,6 +374,35 @@ local transparency = hl.window_rule({
 
 mbind("SHIFT + T", function()
 	transparency:set_enabled(not transparency:is_enabled())
+end)
+
+-- Cycle through layouts
+mbind("R", function()
+	local layouts = { "scrolling", "dwindle", "master" }
+	local workspace = hl.get_active_workspace()
+	if hl.get_active_special_workspace() then
+		workspace = hl.get_active_special_workspace()
+	end
+
+	local next_layout = "dwindle"
+
+	if not workspace then
+		return
+	end
+
+	for i = 1, #layouts do
+		if layouts[i] == workspace.tiled_layout then
+			local next_layout_idx = (i % #layouts) + 1
+			next_layout = layouts[next_layout_idx]
+			break
+		end
+	end
+
+	if workspace.special then
+		hl.workspace_rule({ workspace = tostring(workspace.name), layout = next_layout })
+	else
+		hl.workspace_rule({ workspace = tostring(workspace.id), layout = next_layout })
+	end
 end)
 
 require("rules")

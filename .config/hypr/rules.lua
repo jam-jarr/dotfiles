@@ -82,11 +82,6 @@ hl.window_rule({
 	float = true,
 })
 
--- Transparency overrides
-hl.window_rule({ match = { class = "com.gabm.satty" }, opacity = 1 })
-hl.window_rule({ match = { class = "mpv" }, opacity = 1 })
-hl.window_rule({ match = { class = "org.pwmt.zathura" }, opacity = 1 })
-
 hl.window_rule({
 	name = "neovim-xray",
 	match = {
@@ -106,7 +101,6 @@ hl.layer_rule({
 	blur = true,
 })
 
--- Security
 hl.window_rule({
 	name = "keepassxc-block-capture",
 	match = {
@@ -115,5 +109,18 @@ hl.window_rule({
 	no_screen_share = true,
 })
 
--- Auto-generated
-hl.window_rule({ match = { class = "org.kde.okular" }, opacity = 1 })
+hl.window_rule({
+	name = "kitty",
+	match = {
+		class = "kitty",
+	},
+	scrolling_width = 0.33333,
+})
+
+hl.window_rule({
+	name = "youtube-opaque",
+	match = { title = ".*YouTube.*" },
+	opacity = 1,
+})
+
+require("auto-rule")
