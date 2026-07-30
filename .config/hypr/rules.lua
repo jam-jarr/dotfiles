@@ -118,6 +118,14 @@ hl.window_rule({
 })
 
 hl.window_rule({
+	name = "foot",
+	match = {
+		class = "foot",
+	},
+	scrolling_width = 0.33333,
+})
+
+hl.window_rule({
 	name = "youtube-opaque",
 	match = { title = ".*YouTube.*" },
 	opacity = 1,

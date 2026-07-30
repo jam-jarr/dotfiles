@@ -6,7 +6,7 @@ hl.monitor({
 })
 
 local terminal = "kitty"
-local fileManager = "kitty -e yazi"
+local fileManager = "foot -e yazi"
 local menu = "rofi -show drun"
 local windowselector = "rofi -show window"
 local notificationMenu = "sleep 0.1 && swaync-client -t -sw"
@@ -14,6 +14,10 @@ local screenshotter = "~/.config/hypr/scripts/dot-screenshot.sh"
 local clipboardManager = "cliphist list | rofi -dmenu -display- columns 2 -i | cliphist decode | wl-copy"
 local windowInfo = "~/.config/hypr/scripts/windowinfo.sh"
 local addWindowRule = "~/.config/hypr/scripts/add-window-rule.sh"
+local volume = "pavucontrol"
+
+ICON_FILE_ON = os.getenv("HOME") .. "/.config/hypr/icons/hypr.ico"
+ICON_FILE_OFF = os.getenv("HOME") .. "/.config/hypr/icons/hypr_desaturated.ico"
 
 local autostart = {
 	"hypridle",
@@ -122,6 +126,7 @@ hl.config({
 	},
 
 	scrolling = {
+		wrap_swapcol = false,
 		column_width = 0.66666,
 		explicit_column_widths = "0.33333, 0.66666, 0.985",
 		-- follow_min_visible = 0.3,
@@ -229,10 +234,11 @@ mbind("SHIFT + Return", hl.dsp.exec_cmd(terminal, { float = true, size = { 700, 
 
 -- Programs
 mbind("E", hl.dsp.exec_cmd(fileManager))
-mbind("B", hl.dsp.exec_cmd("kitty -e bluetui"))
+mbind("B", hl.dsp.exec_cmd("foot -e bluetui"))
 mbind("SHIFT + B", hl.dsp.exec_cmd("rfkill toggle bluetooth"))
 mbind("N", hl.dsp.exec_cmd(notificationMenu))
-mbind("SHIFT + N", hl.dsp.exec_cmd("kitty -e impala"))
+mbind("SHIFT + N", hl.dsp.exec_cmd("foot -e impala"))
+mbind("SHIFT + A", hl.dsp.exec_cmd(volume))
 
 -- Rofi scripts
 mbind("Space", hl.dsp.exec_cmd(menu))
@@ -402,6 +408,20 @@ mbind("R", function()
 		hl.workspace_rule({ workspace = tostring(workspace.name), layout = next_layout })
 	else
 		hl.workspace_rule({ workspace = tostring(workspace.id), layout = next_layout })
+	end
+end)
+
+mbind("ALT + A", function()
+	local isAnimate = hl.get_config("animations:enabled")
+	hl.config({
+		animations = {
+			enabled = not isAnimate,
+		},
+	})
+	if not isAnimate then
+		hl.exec_cmd('notify-send "Hyprland" "Animations Enabled" --transient --icon=' .. ICON_FILE_ON)
+	else
+		hl.exec_cmd('notify-send "Hypland" "Animations Disabled" --transient --icon=' .. ICON_FILE_OFF)
 	end
 end)
 
