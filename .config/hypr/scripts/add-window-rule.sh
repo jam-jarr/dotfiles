@@ -13,39 +13,26 @@ title=$(echo "$active" | jq -r '.title')
 [ -z "$class" ] && class="(empty)"
 [ -z "$title" ] && title="(empty)"
 
-match_type=$(printf "class\nclass + title\ntitle" | rofi -dmenu -p "Match by" -no-custom) || exit 1
+declare -A match_map=(
+  ["class"]="class = \"$class\""
+  ["class + title"]="class = \"$class\", title = \"$title\""
+  ["title"]="title = \"$title\""
+)
 
-rule=$(printf "no blur\nopaque\nno screen share" | rofi -dmenu -p "Rule" -no-custom) || exit 1
+match_type=$(printf "%s\n" "${!match_map[@]}" | rofi -dmenu -p "Match by" -no-custom) || exit 1
+match="${match_map[$match_type]}"
+[ -n "$match" ] || exit 1
 
-case "$match_type" in
-"class")
-  match="class = \"$class\""
-  ;;
-"class + title")
-  match="class = \"$class\", title = \"$title\""
-  ;;
-"title")
-  match="title = \"$title\""
-  ;;
-*)
-  exit 1
-  ;;
-esac
+declare -A rule_map=(
+  ["no blur"]="no_blur = true"
+  ["opaque"]="opacity = 1"
+  ["no screen share"]="no_screen_share = true"
+  ["no xray"]="xray = false"
+)
 
-case "$rule" in
-"no blur")
-  prop="no_blur = true"
-  ;;
-"opaque")
-  prop="opacity = 1"
-  ;;
-"no screen share")
-  prop="no_screen_share = true"
-  ;;
-*)
-  exit 1
-  ;;
-esac
+rule=$(printf "%s\n" "${!rule_map[@]}" | rofi -dmenu -p "Rule" -no-custom) || exit 1
+prop="${rule_map[$rule]}"
+[ -n "$prop" ] || exit 1
 
 cat >>"$RULES_FILE" <<EOF
 hl.window_rule({ match = { $match }, $prop })
