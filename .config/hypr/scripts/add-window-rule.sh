@@ -38,4 +38,4 @@ cat >>"$RULES_FILE" <<EOF
 hl.window_rule({ match = { $match }, $prop })
 EOF
 
-notify-send --transient "Rule added" "hl.window_rule({ match = { $match }, $prop })"
+notify-send "Rule added" "hl.window_rule({ match = { $match }, $prop })"

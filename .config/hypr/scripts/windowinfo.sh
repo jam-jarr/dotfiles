@@ -5,5 +5,5 @@ set -o pipefail
 
 info=$(hyprctl activewindow)
 
-notify-send "$info"
+notify-send --transient "$info"
 wl-copy <<<"$info"
