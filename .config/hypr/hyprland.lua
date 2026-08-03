@@ -32,15 +32,15 @@ local autostart = {
 	"/usr/lib/kdeconnectd",
 	"kdeconnect-indicator",
 
-	-- IDR lmao
+	-- Authentication management
+	"systemctl --user start hyprpolkitagent",
+	"systemctl --user start hyprland-session.target",
+
+	-- IDR lmao; so, for some reason if this is above hyprpolkitagent, the agent polls for the wrong user which is weird
 	"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP",
 
 	-- Wallpaper daemon
 	"awww-daemon",
-
-	-- Authentication management
-	"systemctl --user start hyprpolkitagent",
-	"systemctl --user start hyprland-session.target",
 
 	-- Allow playerctl to act on the most recent media player
 	"playerctld daemon",
@@ -80,9 +80,9 @@ end
 
 hl.config({
 	general = {
-		gaps_in = 5,
-		gaps_out = 5,
-		border_size = 4,
+		gaps_in = 3,
+		gaps_out = 10,
+		border_size = 3,
 
 		col = {
 			active_border = { colors = { "rgb(4159d0)", "rgb(c84fc0)", "rgb(ffcd70)" }, angle = 45 },
@@ -127,8 +127,8 @@ hl.config({
 
 	scrolling = {
 		wrap_swapcol = false,
-		column_width = 0.66666,
-		explicit_column_widths = "0.33333, 0.66666, 0.985",
+		column_width = 0.666677,
+		explicit_column_widths = "0.333333, 0.666677, 0.985",
 		-- follow_min_visible = 0.3,
 	},
 	dwindle = {
@@ -239,6 +239,7 @@ mbind("SHIFT + B", hl.dsp.exec_cmd("rfkill toggle bluetooth"))
 mbind("N", hl.dsp.exec_cmd(notificationMenu))
 mbind("SHIFT + N", hl.dsp.exec_cmd("foot -e impala"))
 mbind("SHIFT + A", hl.dsp.exec_cmd(volume))
+mbind("W", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
 
 -- Rofi scripts
 mbind("Space", hl.dsp.exec_cmd(menu))
@@ -269,8 +270,9 @@ mbind(
 		other = hl.dsp.window.pseudo(),
 	})
 )
-mbind("M", hl.dsp.layout("fit visible"))
-mbind("SHIFT + M", hl.dsp.layout("fit all"))
+
+mbind("M", hl.dsp.layout("colresize 0.5"))
+mbind("SHIFT + M", hl.dsp.layout("fit visible"))
 mbind("CONTROL + M", hl.dsp.layout("fit expand"))
 mbind("SHIFT + period", hl.dsp.layout("colresize +conf"))
 mbind("SHIFT + comma", hl.dsp.layout("colresize -conf"))
@@ -378,10 +380,6 @@ local transparency = hl.window_rule({
 	xray = true,
 })
 
-mbind("SHIFT + T", function()
-	transparency:set_enabled(not transparency:is_enabled())
-end)
-
 -- Cycle through layouts
 mbind("R", function()
 	local layouts = { "scrolling", "dwindle", "master" }
@@ -411,6 +409,12 @@ mbind("R", function()
 	end
 end)
 
+-- Toggle transparency
+mbind("SHIFT + T", function()
+	transparency:set_enabled(not transparency:is_enabled())
+end)
+
+-- Toggle animations
 mbind("ALT + A", function()
 	local isAnimate = hl.get_config("animations:enabled")
 	hl.config({
@@ -424,5 +428,42 @@ mbind("ALT + A", function()
 		hl.exec_cmd('notify-send "Hypland" "Animations Disabled" --transient --icon=' .. ICON_FILE_OFF)
 	end
 end)
+
+-- Toggle gaps
+local gapsin = hl.get_config("general:gaps_in").left
+local gapsout = hl.get_config("general:gaps_out").left
+local border = hl.get_config("general.border_size")
+mbind("ALT + G", function()
+	local curgapsin = hl.get_config("general:gaps_in").left
+	local curgapsout = hl.get_config("general:gaps_out").left
+	local curborder = hl.get_config("general.border_size")
+	if curgapsin == gapsin and curgapsout == gapsout then
+		hl.config({
+			general = {
+				gaps_in = 2,
+				gaps_out = 2,
+				border_size = 2,
+			},
+		})
+	else
+		hl.config({
+			general = {
+				gaps_in = gapsin,
+				gaps_out = gapsout,
+				border_size = border,
+			},
+		})
+	end
+end)
+
+-- Adjust layout (predefined ratios) of visible windows in scrolling mode
+-- TODO: cycle current window to widths[0] and the other window to widths[n-1] then switch to other window
+
+-- index = 0
+-- local function cool_shit()
+--   if index == 0 then
+--     last = hl.get_last_window()
+--     hl.dsp.layout("colresize)
+-- end
 
 require("rules")

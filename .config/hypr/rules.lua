@@ -101,6 +101,15 @@ hl.layer_rule({
 	blur = true,
 })
 
+hl.layer_rule({
+	name = "swaync",
+	match = {
+		namespace = "swaync-control-center",
+	},
+	blur = true,
+	ignore_alpha = 0.5,
+})
+
 hl.window_rule({
 	name = "keepassxc-block-capture",
 	match = {
