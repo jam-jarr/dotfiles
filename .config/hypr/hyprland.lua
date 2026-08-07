@@ -310,6 +310,18 @@ for i = 1, 9 do
 end
 mbind("Tab", hl.dsp.focus({ workspace = "previous" }))
 
+-- Change workspace id
+mbind("CONTROL + " .. 0, function()
+	hl.dispatch(hl.dsp.workspace.change_id({ workspace = hl.get_active_workspace().id, id = 10 }))
+	hl.exec_cmd("pkill -SIGUSR2 waybar") -- Waybar does not update on its own
+end)
+for i = 1, 9 do
+	mbind("CONTROL + " .. i, function()
+		hl.dispatch(hl.dsp.workspace.change_id({ workspace = hl.get_active_workspace().id, id = i }))
+		hl.exec_cmd("pkill -SIGUSR2 waybar")
+	end)
+end
+
 -- Move workspace to monitor
 mbind("CONTROL + H", hl.dsp.workspace.move({ workspace = "m", monitor = "l" }))
 mbind("CONTROL + L", hl.dsp.workspace.move({ workspace = "m", monitor = "r" }))
