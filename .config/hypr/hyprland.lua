@@ -495,4 +495,58 @@ end)
 --     hl.dsp.layout("colresize)
 -- end
 
+-- TODO: extensible command menu
+-- function commandmenu()
+--  local commands = {
+--     movewindows = {
+--       name = "Move All Windows to Workspace",
+--       callback = function()
+--         local workspace = hl.get_active_special_workspace() or hl.get_active_workspace()
+--           local window = hl.get_window(i)
+--             hl.move_window_to_workspace(window, workspace)
+--         end
+--       end
+--     }
+--   }
+-- end
+
+-- mbind("C", function()
+-- end)
+
+-- EXTENSIONS
+
+-- Runs programs as backgrounds (requires xray=false)
+-- example: foot --app-id=window-bg -o colors.alpha=0.0 [path-to-script]
+if hl.plugin.hyprwinwrap ~= nil then
+	hl.plugin.hyprwinwrap.window({
+		class = "window-bg",
+		layer = 0,
+		pos_x = 0,
+		pos_y = 0,
+		size_x = 100,
+		size_y = 100,
+	})
+end
+
+if hl.plugin.hyprglass then
+	local hg = hl.plugin.hyprglass
+
+	hg.config({
+		enabled = false,
+		default_theme = "dark",
+		default_preset = "clear",
+		tint_color = 0x554a6900,
+
+		glass_opacity = 1,
+
+		dark = { brightness = 0.72 },
+
+		layers = { enabled = 1 },
+	})
+
+	-- Layer surfaces: each call whitelists the namespace and configures it
+	hg.layer("swaync")
+	hg.layer("rofi", { mask_threshold = 0.2 })
+end
+
 require("rules")
