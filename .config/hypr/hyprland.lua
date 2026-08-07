@@ -97,9 +97,12 @@ hl.config({
 	decoration = {
 		rounding = 5,
 		rounding_power = 2,
+
 		dim_special = 0.05,
 		active_opacity = 1.0,
 		inactive_opacity = 1.0,
+		-- dim_inactive = true,
+		dim_strength = 0.05,
 
 		shadow = {
 			enabled = true,
@@ -383,14 +386,6 @@ mbind("ALT + L", hl.dsp.exec_cmd("hyprlock"))
 mbind("SHIFT + R", hl.dsp.exec_cmd(addWindowRule))
 
 -- COMPLEX BINDS
-local transparency = hl.window_rule({
-	name = "transparency-general",
-	match = {
-		class = ".*",
-	},
-	opacity = "0.93 0.93 1",
-	xray = true,
-})
 
 -- Cycle through layouts
 mbind("R", function()
@@ -422,8 +417,30 @@ mbind("R", function()
 end)
 
 -- Toggle transparency
+local transparency = hl.window_rule({
+	name = "transparency-general",
+	match = {
+		class = ".*",
+	},
+	opacity = "0.93 0.88 1",
+	xray = true,
+})
 mbind("SHIFT + T", function()
 	transparency:set_enabled(not transparency:is_enabled())
+end)
+
+-- Toggle XRAY MODE ( TODO: fish coming to a desktop near you )
+local xray = hl.window_rule({
+	name = "transparency-xray",
+	match = {
+		class = ".*",
+	},
+	opacity = "0.89 0.75 1",
+	xray = false,
+})
+xray:set_enabled(false)
+mbind("SHIFT + X", function()
+	xray:set_enabled(not xray:is_enabled())
 end)
 
 -- Toggle animations

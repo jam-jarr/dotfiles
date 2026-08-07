@@ -83,7 +83,7 @@ hl.window_rule({
 })
 
 hl.window_rule({
-	name = "neovim-xray",
+	name = "special-noxray",
 	match = {
 		workspace = "special:magic",
 	},
@@ -99,6 +99,7 @@ hl.layer_rule({
 		namespace = "rofi",
 	},
 	blur = true,
+	ignore_alpha = 0.2,
 })
 
 hl.layer_rule({
