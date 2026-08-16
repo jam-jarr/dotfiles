@@ -34,6 +34,9 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# Util
+alias awake='systemd-inhibit --what=handle-lid-switch:sleep:idle:shutdown sleep infinity'
+
 # User defined functions
 monlog() {
   tail -f "$1" | bat -l log --paging=never
