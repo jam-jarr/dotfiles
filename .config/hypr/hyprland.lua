@@ -5,6 +5,15 @@ hl.monitor({
 	scale = "1",
 })
 
+-- Mirror external displays by default
+hl.monitor({
+	output = "",
+	mode = "preferred",
+	position = "auto",
+	scale = "1",
+	mirror = "eDP-1",
+})
+
 local terminal = "kitty"
 local fileManager = "foot -e yazi"
 local menu = "rofi -show drun"
@@ -416,8 +425,7 @@ mbind("R", function()
 	end
 end)
 
--- Toggle transparency
-local transparency = hl.window_rule({
+local semitrans = hl.window_rule({
 	name = "transparency-general",
 	match = {
 		class = ".*",
@@ -425,12 +433,7 @@ local transparency = hl.window_rule({
 	opacity = "0.93 0.88 1",
 	xray = true,
 })
-mbind("SHIFT + T", function()
-	transparency:set_enabled(not transparency:is_enabled())
-end)
-
--- Toggle XRAY MODE ( TODO: fish coming to a desktop near you )
-local xray = hl.window_rule({
+local verytrans = hl.window_rule({
 	name = "transparency-xray",
 	match = {
 		class = ".*",
@@ -438,9 +441,28 @@ local xray = hl.window_rule({
 	opacity = "0.89 0.75 1",
 	xray = false,
 })
-xray:set_enabled(false)
-mbind("SHIFT + X", function()
-	xray:set_enabled(not xray:is_enabled())
+
+local states = {
+	function()
+		semitrans:set_enabled(true)
+		verytrans:set_enabled(false)
+	end,
+	function()
+		semitrans:set_enabled(false)
+		verytrans:set_enabled(true)
+	end,
+	function()
+		semitrans:set_enabled(false)
+		verytrans:set_enabled(false)
+	end,
+}
+
+local desiredtrans = 2
+states[desiredtrans]()
+
+mbind("SHIFT + T", function()
+	desiredtrans = desiredtrans % 3 + 1
+	states[desiredtrans]()
 end)
 
 -- Toggle animations
@@ -465,12 +487,11 @@ local border = hl.get_config("general.border_size")
 mbind("ALT + G", function()
 	local curgapsin = hl.get_config("general:gaps_in").left
 	local curgapsout = hl.get_config("general:gaps_out").left
-	local curborder = hl.get_config("general.border_size")
 	if curgapsin == gapsin and curgapsout == gapsout then
 		hl.config({
 			general = {
-				gaps_in = 2,
-				gaps_out = 2,
+				gaps_in = 10,
+				gaps_out = { top = 50, bottom = 50, right = 150, left = 150 },
 				border_size = 2,
 			},
 		})
@@ -483,6 +504,10 @@ mbind("ALT + G", function()
 			},
 		})
 	end
+end)
+
+hl.bind("SUPER + G", function()
+	hl.plugin.hyprwinwrap.focus("window-bg")
 end)
 
 -- Adjust layout (predefined ratios) of visible windows in scrolling mode
@@ -539,7 +564,7 @@ if hl.plugin.hyprglass then
 
 		glass_opacity = 1,
 
-		dark = { brightness = 0.72 },
+		dark = { brightness = 0.95 },
 
 		layers = { enabled = 1 },
 	})

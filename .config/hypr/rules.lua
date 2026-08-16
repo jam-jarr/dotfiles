@@ -141,4 +141,9 @@ hl.window_rule({
 	opacity = 1,
 })
 
+hl.window_rule({
+	match = { class = "org.pwmt.zathura" },
+	scrolling_width = 0.5,
+})
+
 require("auto-rule")
