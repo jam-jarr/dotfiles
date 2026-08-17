@@ -1,17 +1,10 @@
+local util = require("util")
+
 hl.monitor({
 	output = "eDP-1",
 	mode = "preferred",
 	position = "auto",
 	scale = "1",
-})
-
--- Mirror external displays by default
-hl.monitor({
-	output = "",
-	mode = "preferred",
-	position = "auto",
-	scale = "1",
-	mirror = "eDP-1",
 })
 
 local terminal = "kitty"
@@ -335,10 +328,10 @@ for i = 1, 9 do
 end
 
 -- Move workspace to monitor
-mbind("CONTROL + H", hl.dsp.workspace.move({ workspace = "m", monitor = "l" }))
-mbind("CONTROL + L", hl.dsp.workspace.move({ workspace = "m", monitor = "r" }))
-mbind("CONTROL + K", hl.dsp.workspace.move({ workspace = "m", monitor = "u" }))
-mbind("CONTROL + J", hl.dsp.workspace.move({ workspace = "m", monitor = "d" }))
+mbind("CONTROL + H", hl.dsp.workspace.move({ workspace = hl.get_active_workspace(), monitor = "l" }))
+mbind("CONTROL + L", hl.dsp.workspace.move({ workspace = hl.get_active_workspace(), monitor = "r" }))
+mbind("CONTROL + K", hl.dsp.workspace.move({ workspace = hl.get_active_workspace(), monitor = "u" }))
+mbind("CONTROL + J", hl.dsp.workspace.move({ workspace = hl.get_active_workspace(), monitor = "d" }))
 
 -- Scratchpad
 mbind("S", hl.dsp.workspace.toggle_special("magic"))
@@ -381,6 +374,33 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 
 -- Utilities
 mbind("SHIFT + I", hl.dsp.exec_cmd(windowInfo))
+mbind("C", function()
+	local active = hl.get_active_special_workspace()
+	if active and active.name == "special:clip" then
+		util.notify("a")
+		hl.dispatch(hl.dsp.workspace.toggle_special("clip"))
+	else
+		util.notify("b")
+		hl.exec_cmd(
+			"kitty zsh -c 'wl-paste | nvim -R -'",
+			{ xray = false, size = { 700, 550 }, workspace = "special:clip" }
+		)
+	end
+end)
+hl.workspace_rule({
+	workspace = "special:clip",
+	layout = "master",
+	gaps_out = { top = 100, bottom = 100, left = 400, right = 400 },
+	gaps_in = 10,
+})
+hl.window_rule({
+	match = {
+		workspace = "special:clip",
+	},
+	xray = false,
+	opacity = 0.10,
+	no_blur = true,
+})
 mbind("SHIFT + O", hl.dsp.exec_cmd("hyprshot --freeze -m region -r -- | tesseract stdin stdout | wl-copy"))
 hl.bind(
 	"Print",
