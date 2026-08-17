@@ -1,5 +1,8 @@
 local u = require("util")
 
+-- TODO: break up this file into feature sets maybe? (insp. by nix dendritic pattern)
+-- e.g. everything related to pavucontrol (binds, definitions, autostart, etc) to volume.lua or programs.lua
+
 hl.monitor({
 	output = "eDP-1",
 	mode = "preferred",
@@ -17,9 +20,6 @@ local clipboardManager = "cliphist list | rofi -dmenu -display- columns 2 -i | c
 local windowInfo = "~/.config/hypr/scripts/windowinfo.sh"
 local addWindowRule = "~/.config/hypr/scripts/add-window-rule.sh"
 local volume = "pavucontrol"
-
-ICON_FILE_ON = os.getenv("HOME") .. "/.config/hypr/icons/hypr.ico"
-ICON_FILE_OFF = os.getenv("HOME") .. "/.config/hypr/icons/hypr_desaturated.ico"
 
 local autostart = {
 	"hypridle",
@@ -381,13 +381,15 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 
 -- Utilities
 mbind("SHIFT + I", hl.dsp.exec_cmd(windowInfo))
+
+-- Edit your clipboard with vipe!
 mbind("C", function()
 	local active = hl.get_active_special_workspace()
 	if active and active.name == "special:clip" then
 		hl.dispatch(hl.dsp.workspace.toggle_special("clip"))
 	else
 		hl.exec_cmd(
-			"kitty zsh -c 'wl-paste | nvim -R -'",
+			"foot zsh -c 'wl-paste | vipe --suffix md | wl-copy'",
 			{ xray = false, size = { 700, 550 }, workspace = "special:clip" }
 		)
 	end
@@ -406,6 +408,7 @@ hl.window_rule({
 	opacity = 0.10,
 	no_blur = true,
 })
+
 mbind("SHIFT + O", hl.dsp.exec_cmd("hyprshot --freeze -m region -r -- | tesseract stdin stdout | wl-copy"))
 hl.bind(
 	"Print",
@@ -499,9 +502,9 @@ mbind("ALT + A", function()
 		},
 	})
 	if not isAnimate then
-		hl.exec_cmd('notify-send "Hyprland" "Animations Enabled" --transient --icon=' .. ICON_FILE_ON)
+		u.notify("Animations Enabled")
 	else
-		hl.exec_cmd('notify-send "Hypland" "Animations Disabled" --transient --icon=' .. ICON_FILE_OFF)
+		u.notify("Animations Disabled", { negative = true })
 	end
 end)
 
