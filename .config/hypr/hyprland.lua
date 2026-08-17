@@ -1,4 +1,4 @@
-local util = require("util")
+local u = require("util")
 
 hl.monitor({
 	output = "eDP-1",
@@ -276,7 +276,14 @@ mbind(
 	})
 )
 
-mbind("M", hl.dsp.layout("colresize 0.5"))
+mbind("M", function()
+	if hl.get_active_window().floating then
+		hl.dispatch(hl.dsp.window.center())
+	else
+		hl.dispatch(hl.dsp.layout("colresize 0.5"))
+	end
+end)
+
 mbind("SHIFT + M", hl.dsp.layout("fit visible"))
 mbind("CONTROL + M", hl.dsp.layout("fit expand"))
 mbind("SHIFT + period", hl.dsp.layout("colresize +conf"))
@@ -377,10 +384,8 @@ mbind("SHIFT + I", hl.dsp.exec_cmd(windowInfo))
 mbind("C", function()
 	local active = hl.get_active_special_workspace()
 	if active and active.name == "special:clip" then
-		util.notify("a")
 		hl.dispatch(hl.dsp.workspace.toggle_special("clip"))
 	else
-		util.notify("b")
 		hl.exec_cmd(
 			"kitty zsh -c 'wl-paste | nvim -R -'",
 			{ xray = false, size = { 700, 550 }, workspace = "special:clip" }
@@ -500,7 +505,7 @@ mbind("ALT + A", function()
 	end
 end)
 
--- Toggle gaps
+-- Toggle gaps and scale for presenting
 local gapsin = hl.get_config("general:gaps_in").left
 local gapsout = hl.get_config("general:gaps_out").left
 local border = hl.get_config("general.border_size")
@@ -515,7 +520,19 @@ mbind("ALT + G", function()
 				border_size = 2,
 			},
 		})
+		hl.monitor({
+			output = "eDP-1",
+			mode = "preferred",
+			position = "auto",
+			scale = "1.2",
+		})
 	else
+		hl.monitor({
+			output = "eDP-1",
+			mode = "preferred",
+			position = "auto",
+			scale = "1",
+		})
 		hl.config({
 			general = {
 				gaps_in = gapsin,

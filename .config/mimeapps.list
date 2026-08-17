@@ -147,6 +147,7 @@ image/x-xcf=org.kde.gwenview.desktop;
 image/x-xpixmap=org.kde.gwenview.desktop;
 text/html=zen.desktop;
 text/markdown=nvim.desktop;
+text/org=emacsclient.desktop;
 text/plain=nvim.desktop;
 text/x-cmake=nvim.desktop;
 video/*=vlc.desktop;
