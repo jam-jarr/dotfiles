@@ -1,7 +1,7 @@
 local u = require("util")
 
 -- TODO: break up this file into feature sets maybe? (insp. by nix dendritic pattern)
--- e.g. everything related to pavucontrol (binds, definitions, autostart, etc) to volume.lua or programs.lua
+-- e.g. everything related to pavucontrol (binds, definitions, autostart, etc) to volume.lua or perhaps programs.lua
 
 hl.monitor({
 	output = "eDP-1",
@@ -389,7 +389,7 @@ mbind("C", function()
 		hl.dispatch(hl.dsp.workspace.toggle_special("clip"))
 	else
 		hl.exec_cmd(
-			"foot zsh -c 'wl-paste | vipe --suffix md | wl-copy'",
+			[[foot zsh -c "wl-paste | vipe | wl-copy --trim-newline"]],
 			{ xray = false, size = { 700, 550 }, workspace = "special:clip" }
 		)
 	end
@@ -600,7 +600,7 @@ if hl.plugin.hyprglass then
 		enabled = false,
 		default_theme = "dark",
 		default_preset = "clear",
-		tint_color = 0x554a6900,
+		tint_color = 0x554a690f,
 
 		glass_opacity = 1,
 
