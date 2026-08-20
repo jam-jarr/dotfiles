@@ -232,6 +232,10 @@ hl.gesture({ fingers = 3, direction = "pinch", action = "cursorZoom", zoom_level
 
 -- Close graphical session
 mbind("CONTROL + SHIFT + Q", hl.dsp.exec_cmd("hyprshutdown -t 'Shutting Down' --verbose"))
+mbind(
+	"CONTROL + ALT + SHIFT + Q",
+	hl.dsp.exec_cmd("hyprshutdown -t 'Shutting Down' --verbose --post-cmd 'shutdown now'")
+)
 
 -- Pickers
 mbind("Return", hl.dsp.exec_cmd(terminal))
@@ -343,7 +347,12 @@ mbind("CONTROL + J", hl.dsp.workspace.move({ workspace = hl.get_active_workspace
 -- Scratchpad
 mbind("S", hl.dsp.workspace.toggle_special("magic"))
 mbind("SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-hl.workspace_rule({ workspace = "special:magic", layout = "dwindle" })
+hl.workspace_rule({
+	workspace = "special:magic",
+	layout = "master",
+	gaps_out = { top = 100, bottom = 100, left = 400, right = 400 },
+	gaps_in = 10,
+})
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
@@ -384,30 +393,15 @@ mbind("SHIFT + I", hl.dsp.exec_cmd(windowInfo))
 
 -- Edit your clipboard with vipe!
 mbind("C", function()
-	local active = hl.get_active_special_workspace()
-	if active and active.name == "special:clip" then
-		hl.dispatch(hl.dsp.workspace.toggle_special("clip"))
-	else
-		hl.exec_cmd(
-			[[foot zsh -c "wl-paste | vipe | wl-copy --trim-newline"]],
-			{ xray = false, size = { 700, 550 }, workspace = "special:clip" }
-		)
-	end
+	hl.exec_cmd([[foot zsh -c "wl-paste | vipe --suffix md | wl-copy --trim-newline"]], {
+		xray = false,
+		opacity = 0.80,
+		no_blur = true,
+		workspace = "special:magic",
+		-- gaps_out = { top = 100, bottom = 100, left = 400, right = 400 },
+		-- gaps_in = 10,
+	})
 end)
-hl.workspace_rule({
-	workspace = "special:clip",
-	layout = "master",
-	gaps_out = { top = 100, bottom = 100, left = 400, right = 400 },
-	gaps_in = 10,
-})
-hl.window_rule({
-	match = {
-		workspace = "special:clip",
-	},
-	xray = false,
-	opacity = 0.10,
-	no_blur = true,
-})
 
 mbind("SHIFT + O", hl.dsp.exec_cmd("hyprshot --freeze -m region -r -- | tesseract stdin stdout | wl-copy"))
 hl.bind(
@@ -421,8 +415,6 @@ mbind("SHIFT + Print", hl.dsp.exec_cmd(screenshotter .. " region"))
 mbind("CONTROL + Print", hl.dsp.exec_cmd(screenshotter .. " monitor-all"))
 mbind("ALT + L", hl.dsp.exec_cmd("hyprlock"))
 mbind("SHIFT + R", hl.dsp.exec_cmd(addWindowRule))
-
--- COMPLEX BINDS
 
 -- Cycle through layouts
 mbind("R", function()
@@ -453,8 +445,8 @@ mbind("R", function()
 	end
 end)
 
+-- Transparency State Machine
 local semitrans = hl.window_rule({
-	name = "transparency-general",
 	match = {
 		class = ".*",
 	},
@@ -462,7 +454,6 @@ local semitrans = hl.window_rule({
 	xray = true,
 })
 local verytrans = hl.window_rule({
-	name = "transparency-xray",
 	match = {
 		class = ".*",
 	},
@@ -485,6 +476,7 @@ local states = {
 	end,
 }
 
+-- Set initial state
 local desiredtrans = 2
 states[desiredtrans]()
 
@@ -550,9 +542,7 @@ hl.bind("SUPER + G", function()
 	hl.plugin.hyprwinwrap.focus("window-bg")
 end)
 
--- Adjust layout (predefined ratios) of visible windows in scrolling mode
--- TODO: cycle current window to widths[0] and the other window to widths[n-1] then switch to other window
-
+-- TODO: cycle curr and prev windows in scrolling from .333 to .666
 -- index = 0
 -- local function cool_shit()
 --   if index == 0 then
@@ -575,9 +565,6 @@ end)
 --   }
 -- end
 
--- mbind("C", function()
--- end)
-
 -- EXTENSIONS
 
 -- Runs programs as backgrounds (requires xray=false)
@@ -593,6 +580,7 @@ if hl.plugin.hyprwinwrap ~= nil then
 	})
 end
 
+-- Glass effects
 if hl.plugin.hyprglass then
 	local hg = hl.plugin.hyprglass
 
@@ -600,8 +588,8 @@ if hl.plugin.hyprglass then
 		enabled = false,
 		default_theme = "dark",
 		default_preset = "clear",
-		tint_color = 0x554a690f,
 
+		tint_color = 0x554a690f,
 		glass_opacity = 1,
 
 		dark = { brightness = 0.95 },

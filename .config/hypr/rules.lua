@@ -146,4 +146,10 @@ hl.window_rule({
 	scrolling_width = 0.5,
 })
 
+hl.window_rule({
+	match = { class = "vesktop" },
+	opacity = 1,
+	workspace = 8,
+})
+
 require("auto-rule")
