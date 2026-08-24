@@ -148,7 +148,6 @@ hl.window_rule({
 
 hl.window_rule({
 	match = { class = "vesktop" },
-	opacity = 1,
 	workspace = 8,
 })
 

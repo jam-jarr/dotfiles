@@ -7,7 +7,13 @@ hl.monitor({
 	output = "eDP-1",
 	mode = "preferred",
 	position = "auto",
-	scale = "1",
+	scale = 1,
+})
+
+hl.monitor({
+	output = "HDMI-A-1",
+	mode = "preferred",
+	scale = 1.8,
 })
 
 local terminal = "kitty"
@@ -481,7 +487,7 @@ local desiredtrans = 2
 states[desiredtrans]()
 
 mbind("SHIFT + T", function()
-	desiredtrans = desiredtrans % 3 + 1
+	desiredtrans = desiredtrans % #states + 1
 	states[desiredtrans]()
 end)
 
@@ -526,7 +532,7 @@ mbind("ALT + G", function()
 			output = "eDP-1",
 			mode = "preferred",
 			position = "auto",
-			scale = "1",
+			scale = 1,
 		})
 		hl.config({
 			general = {
