@@ -1,3 +1,5 @@
+local g = require("globals")
+
 hl.window_rule({
 	name = "suppress-maximize-events",
 	match = {
@@ -25,7 +27,7 @@ hl.window_rule({
 	match = {
 		fullscreen = true,
 	},
-	border_color = { colors = { "rgb(dac574)", "rgb(d9b656)", "rgb(671610)" }, angle = 45 },
+	border_color = { colors = { "rgb(671610)", "rgb(d9b656)", "rgb(dac574)" }, angle = 45 },
 })
 
 hl.window_rule({
@@ -120,11 +122,19 @@ hl.window_rule({
 })
 
 hl.window_rule({
+	name = "signal-block-capture",
+	match = {
+		class = "signal",
+	},
+	no_screen_share = true,
+})
+
+hl.window_rule({
 	name = "kitty",
 	match = {
 		class = "kitty",
 	},
-	scrolling_width = 0.33333,
+	scrolling_width = g.s_widths[1],
 })
 
 hl.window_rule({
@@ -132,7 +142,7 @@ hl.window_rule({
 	match = {
 		class = "foot",
 	},
-	scrolling_width = 0.33333,
+	scrolling_width = g.s_widths[1],
 })
 
 hl.window_rule({
@@ -144,11 +154,30 @@ hl.window_rule({
 hl.window_rule({
 	match = { class = "org.pwmt.zathura" },
 	scrolling_width = 0.5,
+	opacity = 1,
+})
+
+hl.window_rule({
+	match = { class = "sioyek" },
+	scrolling_width = 0.5,
+	opacity = 1,
 })
 
 hl.window_rule({
 	match = { class = "vesktop" },
 	workspace = 8,
 })
+
+hl.window_rule({
+	match = { class = "org.keepassxc.KeePassXC", title = "KeePassXC - Browser Access Request" },
+	move = { 960, 540 },
+})
+
+hl.window_rule({
+	match = { class = "^(emacs)$", title = "^(emacs-float)$" },
+	workspace = "special:magic",
+})
+
+hl.window_rule({ match = { class = "mpv" }, opacity = 1, scrolling_width = g.s_widths[3] })
 
 require("auto-rule")

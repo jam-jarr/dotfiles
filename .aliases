@@ -37,6 +37,11 @@ alias mv='mv -i'
 # Util
 alias awake='systemd-inhibit --what=handle-lid-switch:sleep:idle:shutdown sleep infinity'
 
+# Kubernetes
+alias k=kubectl
+alias m=minikube
+alias f=flux
+
 # User defined functions
 monlog() {
   tail -f "$1" | bat -l log --paging=never

@@ -86,7 +86,7 @@ zi for \
 # zinit cdreplay -q
 
 # Load completions before fzf-tab
-# autoload -U compinit; compinit
+autoload -U compinit; compinit
 zi ice lucid wait
 zi light Aloxaf/fzf-tab
 
@@ -124,7 +124,9 @@ zstyle ':completion:*' menu no
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
 
 # oh-my-posh
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/macchiato.json)"
+# eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/macchiato.json)"
+# Starship is better?
+eval "$(starship init zsh)"
 
 # Enable FZF support for bash
 eval "$(fzf --zsh)"

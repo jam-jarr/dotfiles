@@ -84,7 +84,7 @@ x-scheme-handler/signalcaptcha=signal-desktop.desktop;signal.desktop;
 [Default Applications]
 application/epub+zip=org.pwmt.zathura.desktop;
 application/json=nvim.desktop;
-application/pdf=org.pwmt.zathura.desktop;
+application/pdf=/usr/share/applications/sioyek.desktop
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-startcenter.desktop;
 application/x-docbook+xml=nvim.desktop;
 application/x-extension-htm=zen.desktop;
@@ -147,7 +147,7 @@ image/x-xcf=org.kde.gwenview.desktop;
 image/x-xpixmap=org.kde.gwenview.desktop;
 text/html=zen.desktop;
 text/markdown=nvim.desktop;
-text/org=emacsclient.desktop;
+text/org=emacsclient.desktop
 text/plain=nvim.desktop;
 text/x-cmake=nvim.desktop;
 video/*=vlc.desktop;

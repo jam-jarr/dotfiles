@@ -1,4 +1,5 @@
 local u = require("util")
+local g = require("globals")
 
 -- TODO: break up this file into feature sets maybe? (insp. by nix dendritic pattern)
 -- e.g. everything related to pavucontrol (binds, definitions, autostart, etc) to volume.lua or perhaps programs.lua
@@ -13,10 +14,10 @@ hl.monitor({
 hl.monitor({
 	output = "HDMI-A-1",
 	mode = "preferred",
-	scale = 1.8,
+	scale = 1.875,
 })
 
-local terminal = "kitty"
+local terminal = "foot"
 local fileManager = "foot -e yazi"
 local menu = "rofi -show drun"
 local windowselector = "rofi -show window"
@@ -138,8 +139,8 @@ hl.config({
 
 	scrolling = {
 		wrap_swapcol = false,
-		column_width = 0.666677,
-		explicit_column_widths = "0.333333, 0.666677, 0.985",
+		column_width = g.s_widths[2],
+		explicit_column_widths = table.concat(g.s_widths, ", "),
 		-- follow_min_visible = 0.3,
 	},
 	dwindle = {
@@ -155,8 +156,9 @@ hl.config({
 
 	input = {
 		kb_layout = "us",
-		follow_mouse = 1,
 
+		follow_mouse = 1,
+		accel_profile = "adaptive",
 		sensitivity = 0,
 
 		numlock_by_default = true,
@@ -245,7 +247,7 @@ mbind(
 
 -- Pickers
 mbind("Return", hl.dsp.exec_cmd(terminal))
-mbind("SHIFT + Return", hl.dsp.exec_cmd(terminal, { float = true, size = { 700, 550 } }))
+mbind("SHIFT + Return", hl.dsp.exec_cmd("emacsclient -c", { float = true, size = { 700, 550 } }))
 
 -- Programs
 mbind("E", hl.dsp.exec_cmd(fileManager))
@@ -295,7 +297,7 @@ mbind("M", function()
 end)
 
 mbind("SHIFT + M", hl.dsp.layout("fit visible"))
-mbind("CONTROL + M", hl.dsp.layout("fit expand"))
+mbind("CONTROL + M", hl.dsp.layout("colresize all 0.5"))
 mbind("SHIFT + period", hl.dsp.layout("colresize +conf"))
 mbind("SHIFT + comma", hl.dsp.layout("colresize -conf"))
 mbind("period", hl.dsp.layout("swapcol r"))
@@ -344,11 +346,11 @@ for i = 1, 9 do
 	end)
 end
 
--- Move workspace to monitor
-mbind("CONTROL + H", hl.dsp.workspace.move({ workspace = hl.get_active_workspace(), monitor = "l" }))
-mbind("CONTROL + L", hl.dsp.workspace.move({ workspace = hl.get_active_workspace(), monitor = "r" }))
-mbind("CONTROL + K", hl.dsp.workspace.move({ workspace = hl.get_active_workspace(), monitor = "u" }))
-mbind("CONTROL + J", hl.dsp.workspace.move({ workspace = hl.get_active_workspace(), monitor = "d" }))
+-- Move active workspace to monitor (directional)
+mbind("CONTROL + H", hl.dsp.workspace.move({ monitor = "l" }))
+mbind("CONTROL + L", hl.dsp.workspace.move({ monitor = "r" }))
+mbind("CONTROL + K", hl.dsp.workspace.move({ monitor = "u" }))
+mbind("CONTROL + J", hl.dsp.workspace.move({ monitor = "d" }))
 
 -- Scratchpad
 mbind("S", hl.dsp.workspace.toggle_special("magic"))
@@ -408,6 +410,15 @@ mbind("C", function()
 		-- gaps_in = 10,
 	})
 end)
+
+-- Emacs Everywhere!
+mbind(
+	"O",
+	hl.dsp.exec_cmd('emacsclient --eval "(thanos/type)"', {
+		workspace = "special:magic",
+		no_blur = true,
+	})
+)
 
 mbind("SHIFT + O", hl.dsp.exec_cmd("hyprshot --freeze -m region -r -- | tesseract stdin stdout | wl-copy"))
 hl.bind(
@@ -469,12 +480,12 @@ local verytrans = hl.window_rule({
 
 local states = {
 	function()
-		semitrans:set_enabled(true)
-		verytrans:set_enabled(false)
-	end,
-	function()
 		semitrans:set_enabled(false)
 		verytrans:set_enabled(true)
+	end,
+	function()
+		semitrans:set_enabled(true)
+		verytrans:set_enabled(false)
 	end,
 	function()
 		semitrans:set_enabled(false)
@@ -483,7 +494,7 @@ local states = {
 }
 
 -- Set initial state
-local desiredtrans = 2
+local desiredtrans = 1
 states[desiredtrans]()
 
 mbind("SHIFT + T", function()
@@ -584,28 +595,6 @@ if hl.plugin.hyprwinwrap ~= nil then
 		size_x = 100,
 		size_y = 100,
 	})
-end
-
--- Glass effects
-if hl.plugin.hyprglass then
-	local hg = hl.plugin.hyprglass
-
-	hg.config({
-		enabled = false,
-		default_theme = "dark",
-		default_preset = "clear",
-
-		tint_color = 0x554a690f,
-		glass_opacity = 1,
-
-		dark = { brightness = 0.95 },
-
-		layers = { enabled = 1 },
-	})
-
-	-- Layer surfaces: each call whitelists the namespace and configures it
-	hg.layer("swaync")
-	hg.layer("rofi", { mask_threshold = 0.2 })
 end
 
 require("rules")
