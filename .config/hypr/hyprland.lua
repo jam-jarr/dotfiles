@@ -34,9 +34,6 @@ local autostart = {
 	"wl-paste --type text --watch cliphist store",
 	"wl-paste --type image --watch cliphist store",
 
-	-- Keep the clipboard after closing application
-	"wl-clip-persist --clipboard both",
-
 	-- KDE Connect
 	"/usr/lib/kdeconnectd",
 	"kdeconnect-indicator",
