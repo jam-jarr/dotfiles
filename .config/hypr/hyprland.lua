@@ -1,5 +1,5 @@
-local u = require("util")
-local g = require("globals")
+local U = require("util")
+local G = require("globals")
 
 -- TODO: break up this file into feature sets maybe? (insp. by nix dendritic pattern)
 -- e.g. everything related to pavucontrol (binds, definitions, autostart, etc) to volume.lua or perhaps programs.lua
@@ -17,19 +17,8 @@ hl.monitor({
 	scale = 1.875,
 })
 
-local terminal = "foot"
-local fileManager = "foot -e yazi"
-local menu = "rofi -show drun"
-local windowselector = "rofi -show window"
-local notificationMenu = "sleep 0.1 && swaync-client -t -sw"
-local screenshotter = "~/.config/hypr/scripts/dot-screenshot.sh"
-local clipboardManager = "cliphist list | rofi -dmenu -display- columns 2 -i | cliphist decode | wl-copy"
-local windowInfo = "~/.config/hypr/scripts/windowinfo.sh"
-local addWindowRule = "~/.config/hypr/scripts/add-window-rule.sh"
-local volume = "pavucontrol"
-
 local autostart = {
-	"hypridle",
+	G.idle,
 	"waybar",
 	"wl-paste --type text --watch cliphist store",
 	"wl-paste --type image --watch cliphist store",
@@ -136,8 +125,8 @@ hl.config({
 
 	scrolling = {
 		wrap_swapcol = false,
-		column_width = g.s_widths[2],
-		explicit_column_widths = table.concat(g.s_widths, ", "),
+		column_width = G.s_widths[2],
+		explicit_column_widths = table.concat(G.s_widths, ", "),
 		-- follow_min_visible = 0.3,
 	},
 	dwindle = {
@@ -243,23 +232,23 @@ mbind(
 )
 
 -- Pickers
-mbind("Return", hl.dsp.exec_cmd(terminal))
-mbind("SHIFT + Return", hl.dsp.exec_cmd("emacsclient -c", { float = true, size = { 700, 550 } }))
+mbind("Return", hl.dsp.exec_cmd(G.terminal))
+mbind("SHIFT + Return", hl.dsp.exec_cmd("emacsclient -c"))
 
 -- Programs
-mbind("E", hl.dsp.exec_cmd(fileManager))
+mbind("E", hl.dsp.exec_cmd(G.fileManager))
 mbind("B", hl.dsp.exec_cmd("foot -e bluetui"))
 mbind("SHIFT + B", hl.dsp.exec_cmd("rfkill toggle bluetooth"))
-mbind("N", hl.dsp.exec_cmd(notificationMenu))
+mbind("N", hl.dsp.exec_cmd(G.notificationMenu))
 mbind("SHIFT + N", hl.dsp.exec_cmd("foot -e impala"))
-mbind("SHIFT + A", hl.dsp.exec_cmd(volume))
+mbind("SHIFT + A", hl.dsp.exec_cmd(G.volume))
 mbind("W", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
 
 -- Rofi scripts
-mbind("Space", hl.dsp.exec_cmd(menu))
-mbind("SHIFT + Space", hl.dsp.exec_cmd(windowselector))
+mbind("Space", hl.dsp.exec_cmd(G.menu))
+mbind("SHIFT + Space", hl.dsp.exec_cmd(G.windowselector))
 mbind("SHIFT + W", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-picker.sh"))
-mbind("V", hl.dsp.exec_cmd(clipboardManager))
+mbind("V", hl.dsp.exec_cmd(G.clipboardManager))
 mbind(
 	"SHIFT + C",
 	hl.dsp.exec_cmd("rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\"")
@@ -352,10 +341,11 @@ mbind("CONTROL + J", hl.dsp.workspace.move({ monitor = "d" }))
 -- Scratchpad
 mbind("S", hl.dsp.workspace.toggle_special("magic"))
 mbind("SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+
 hl.workspace_rule({
 	workspace = "special:magic",
-	layout = "master",
-	gaps_out = { top = 100, bottom = 100, left = 400, right = 400 },
+	layout = "scrolling",
+	gaps_out = { top = 100, bottom = 100, left = 300, right = 300 },
 	gaps_in = 10,
 })
 
@@ -394,11 +384,23 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 -- Utilities
-mbind("SHIFT + I", hl.dsp.exec_cmd(windowInfo))
+mbind("SHIFT + I", hl.dsp.exec_cmd(G.windowInfo))
 
 -- Edit your clipboard with vipe!
 mbind("C", function()
 	hl.exec_cmd([[foot zsh -c "wl-paste | vipe --suffix md | wl-copy --trim-newline"]], {
+		xray = false,
+		opacity = 0.80,
+		no_blur = true,
+		workspace = "special:magic",
+		-- gaps_out = { top = 100, bottom = 100, left = 400, right = 400 },
+		-- gaps_in = 10,
+	})
+end)
+
+-- Stay awake!
+mbind("A", function()
+	hl.exec_cmd([[foot zsh -c "systemd-inhibit --what=handle-lid-switch:sleep:idle:shutdown sleep infinity"]], {
 		xray = false,
 		opacity = 0.80,
 		no_blur = true,
@@ -424,11 +426,11 @@ hl.bind(
 		'hyprshot -s --clipboard-only --freeze -m region && notify-send "Copied to clipboard" --transient -t 900'
 	)
 )
-mbind("Print", hl.dsp.exec_cmd(screenshotter .. " window"))
-mbind("SHIFT + Print", hl.dsp.exec_cmd(screenshotter .. " region"))
-mbind("CONTROL + Print", hl.dsp.exec_cmd(screenshotter .. " monitor-all"))
+mbind("Print", hl.dsp.exec_cmd(G.screenshotter .. " window"))
+mbind("SHIFT + Print", hl.dsp.exec_cmd(G.screenshotter .. " region"))
+mbind("CONTROL + Print", hl.dsp.exec_cmd(G.screenshotter .. " monitor-all"))
 mbind("ALT + L", hl.dsp.exec_cmd("hyprlock"))
-mbind("SHIFT + R", hl.dsp.exec_cmd(addWindowRule))
+mbind("SHIFT + R", hl.dsp.exec_cmd(G.addWindowRule))
 
 -- Cycle through layouts
 mbind("R", function()
@@ -491,7 +493,7 @@ local states = {
 }
 
 -- Set initial state
-local desiredtrans = 1
+local desiredtrans = 3
 states[desiredtrans]()
 
 mbind("SHIFT + T", function()
@@ -508,9 +510,9 @@ mbind("ALT + A", function()
 		},
 	})
 	if not isAnimate then
-		u.notify("Animations Enabled")
+		U.notify("Animations Enabled")
 	else
-		u.notify("Animations Disabled", { negative = true })
+		U.notify("Animations Disabled", { negative = true })
 	end
 end)
 
@@ -525,7 +527,7 @@ mbind("ALT + G", function()
 		hl.config({
 			general = {
 				gaps_in = 10,
-				gaps_out = { top = 50, bottom = 50, right = 150, left = 150 },
+				-- gaps_out = { top = 50, bottom = 50, right = 150, left = 150 },
 				border_size = 2,
 			},
 		})
@@ -533,7 +535,7 @@ mbind("ALT + G", function()
 			output = "eDP-1",
 			mode = "preferred",
 			position = "auto",
-			scale = "1.2",
+			scale = "1.5",
 		})
 	else
 		hl.monitor({

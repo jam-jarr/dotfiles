@@ -56,14 +56,13 @@ hl.window_rule({
 })
 
 hl.window_rule({
-	name = "zen-library",
+	name = "browser-library",
 	match = {
-		class = "zen",
+		class = "zen|librewolf|firefox",
 		title = "Library",
 	},
-	min_size = { 1000, 600 },
 	xray = false,
-	float = true,
+	workspace = "special:magic",
 })
 
 hl.window_rule({
